@@ -12,14 +12,16 @@ def prompt(msg)
   puts "=>#{msg}"
 end
 
-def score(user, comp)
-  puts "You: #{user}, Computer: #{comp}"
-end
+# def score(user, comp)
+  
+# end
 
 # rubocop:disable Metrics/AbcSize
-def display_board(brd)
+def display_board(brd, player, comp)
   system "clear"
   puts "You're a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}"
+  puts ""
+  puts "You: #{player}, Computer: #{comp}"
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -85,7 +87,7 @@ def computer_places_piece!(brd)
   end
 
   if !square
-    brd[5] == ' ' ? square = 5 : square = empty_squares(brd).sample
+    brd[5] == INITIAL_MARKER ? square = 5 : square = empty_squares(brd).sample
   end
 
   brd[square] = COMPUTER_MARKER
@@ -121,41 +123,59 @@ def joinor(arr, join1 = ', ', join2 = 'or')
   end
 end
 
+def place_piece!(brd, who)
+  who == 'player'? player_places_piece!(brd) : computer_places_piece!(brd)
+end
+
+def alternate_player(player)
+  player == 'player' ? 'computer' : 'player'
+end
+
 loop do
   user_score = 0
   computer_score = 0
-  
+  current_player = 'player'
 
   loop do
+    loop do
+      prompt "Who goes first player or computer?"
+      who_goes = gets.chomp
+      case who_goes.downcase
+      when 'player'
+        current_player = 'player'
+        break
+      when 'computer' 
+        current_player = 'computer'
+        break
+      else
+        puts "Invalid choice, choose again."
+      end
+    end
+
     board = initialize_board
-    prompt "Who goes first player or computer?"
-    who_goes = gets.chomp
-    
-    computer_places_piece!(board) if who_goes == "computer"
 
     loop do
-      score(user_score, computer_score)
-      display_board(board)
-
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
-
-      computer_places_piece!(board)
+      display_board(board, user_score, computer_score)
+      place_piece!(board,current_player)
+      current_player = alternate_player(current_player)
       break if someone_won?(board) || board_full?(board)
     end
     
+    detect_winner(board) == "Player" ? user_score += 1 : computer_score += 1
+
+    display_board(board, user_score, computer_score)
+
     if someone_won?(board)
-      detect_winner(board) == "Player" ? user_score += 1 : computer_score += 1
       prompt "#{detect_winner(board)} won!"
     else
       prompt "It's a tie!"
     end
 
-    score(user_score, computer_score)
-    display_board(board)
-
   break if user_score == 5 || computer_score == 5
   end
+
+  puts ""
+
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
