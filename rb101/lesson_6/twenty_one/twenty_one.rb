@@ -69,9 +69,7 @@ def total(hand)
 end
 
 def busted?(hand)
-  points = total(hand)
-  return true if points > 21
-  false
+  total(hand) > 21 ? true : false
 end
 
 def players_turn(players_hand, dealers_hand, deck)
