@@ -1,12 +1,12 @@
-CARDS = [ '2', '3', '4', '5', '6', '7', '8', '9', '10',
+CARDS = ['2', '3', '4', '5', '6', '7', '8', '9', '10',
          'Jack', 'Queen', 'King', 'Ace']
 
-SUITS = [ 'Heart', 'Spades', 'Diamonds', 'Clubs' ]
+SUITS = ['Heart', 'Spades', 'Diamonds', 'Clubs']
 
-FACE_CARD_VALUE = {'King' => 10, 'Queen' => 10, 'Jack' => 10, 'Ace' => [1, 11]}
+FACE_CARD_VALUE = { 'King' => 10, 'Queen' => 10,
+                    'Jack' => 10, 'Ace' => [1, 11] }
 
-
-def Initialize_deck()
+def initialize_deck
   full_deck = []
   SUITS.each do |suit|
     CARDS.each { |card| full_deck << [suit, card] }
@@ -33,11 +33,12 @@ end
 def who_has_what(player_arr, dealer_arr, end_game = false)
   system "clear"
   if end_game == false
-    puts "Dealer has: #{ dealer_arr.last.last } and unknown card"
+    puts "Dealer has: #{dealer_arr.last.last} and unknown card"
   else
-    puts "Dealer has: #{ cards_to_string(dealer_arr) }"
+    puts "Dealer has: #{cards_to_string(dealer_arr)}"
   end
-    puts "Player has: #{ cards_to_string(player_arr) }"
+
+  puts "Player has: #{cards_to_string(player_arr)}"
 end
 
 def hit(hand, deck)
@@ -92,7 +93,7 @@ end
 def dealers_turn(dealers_hand, deck)
   loop do
     hit(dealers_hand, deck) if total(dealers_hand) < 17
-    break if total(dealers_hand) >=17 || busted?(dealers_hand)
+    break if total(dealers_hand) >= 17 || busted?(dealers_hand)
   end
 
   puts 'Dealer has busted... Player wins!' if busted?(dealers_hand)
@@ -121,8 +122,8 @@ def display_who_won?(players_hand, dealers_hand)
 end
 
 loop do
-  deck = Initialize_deck()
-  player = deal_cards(deck) 
+  deck = initialize_deck
+  player = deal_cards(deck)
   dealer = deal_cards(deck)
   who_has_what(player, dealer)
 
@@ -137,14 +138,8 @@ loop do
     display_who_won?(player, dealer)
     break
   end
-  
+
   puts "Would you like to play again? (y / n)"
   answer = gets.chomp
   break if answer.downcase.start_with?('n')
 end
-
-
-
-
-
-
