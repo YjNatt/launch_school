@@ -1,36 +1,32 @@
-# def egyptian(r_num)
-#   result = []
-#   fraction = r_num
-#   n = fraction.numerator
-#   d = fraction.denominator
+=begin
+  input: fraction
+  output: [ integers ]
+  rules: return array of denominators that are part of an egyptian fraction
+         that calculates the resultions rational number
+  Data structure / algorithm:
 
-#   loop do
-#     result << Rational(d, n).ceil
-#     fraction = Rational(n, d) - Rational(1, Rational(d, n).ceil)
-#     n = fraction.numerator
-#     d = fraction.denominator
-#     break if n == 0
-#   end
-#   result
-# end
 
-def fibonacci(fraction)
-  p n = fraction.numerator
-  p d = fraction.denominator
-  p top = -d % n
-  p bot = d*((d/n.to_f).ceil)
-   Rational(1, (d/n.to_f).ceil) + Rational(top, bot)
-end
-
-p fibonacci(Rational(2,1))
-
+=end
 
 def egyptian(r_num)
-  n = r_num.numerator
-  d = r_num.denominator
+
+  results = []
+
+  current_denom = 1
 
 
+  until r_num <= 0 do
+    if Rational(1,current_denom) <= r_num
+      results << current_denom
+      r_num -= Rational(1,current_denom) 
+    end
 
+    current_denom += 1
+
+  end
+   results
 end
 
-# p egyptian(Rational(1,2))
+p egyptian(Rational(2, 1))    # -> [1, 2, 3, 6]
+p egyptian(Rational(137, 60)) # -> [1, 2, 3, 4, 5]
+p egyptian(Rational(3, 1))  
