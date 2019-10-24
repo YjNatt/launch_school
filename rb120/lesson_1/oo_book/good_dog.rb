@@ -1,33 +1,25 @@
-# initializing a New Object
-
-class GoodDog
-  attr_accessor :name, :height, :weight
-
-  def initialize(n, h ,w)
-    @name = n
-    @height = h
-    @weight = w
-  end
-
-  def speak
-    "#{name} says Arf!"
-  end
-
-  def change_info(n, h, w)
-    self.name = n
-    self.height = h
-    self.weight = w
-  end
-
-  def info
-    "#{self.name} weighs #{self.weight} and is #{self.height} tall"
+class Parent
+  def say_hi
+    p "Hi from Parent."
   end
 end
 
-sparky = GoodDog.new("Sparky", "12 inches", "10 lbs")
-puts sparky.info
+Parent.superclass
 
-sparky.change_info("Spartacus", "24 inches", "45 lbs")
-puts sparky.info
+class Child < Parent
+  def say_hi
+    p "Hi from Child"
+  end
 
+  def send
+    p "send from Child"
+  end
 
+  def instance_of?
+    p "i'm a fake instance"
+  end
+end
+
+son = Child.new
+p son.instance_of? Child
+p son.instance_of? Parent
