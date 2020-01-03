@@ -33,4 +33,6 @@ def compare(str)
   puts "After: #{after}"
 end
 
-compare('hello') { |word| puts "hi" }
+def test(&block)
+  puts "What's &block #{block}"
+end
