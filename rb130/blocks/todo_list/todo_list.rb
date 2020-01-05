@@ -36,13 +36,15 @@ class TodoList
   end
 
   def add(todo)
-    if todo.class == Todo
+    if todo.instance_of? Todo
         @todos << todo 
     else
         raise TypeError.new("Can only add Todo Objects")
     end
   end
 
+  alias_method :<<, :add
+  
   def size
     todos.size
   end
@@ -56,11 +58,11 @@ class TodoList
   end
 
   def to_a
-    todos
+    todos.clone
   end
 
   def done?
-    todos.all? { |todo| todo.done? == true }
+    todos.all? { |todo| todo.done? }
   end
 
   def item_at(index)
@@ -68,11 +70,11 @@ class TodoList
   end
 
   def mark_done_at(index)
-    self.item_at(index).done!
+    item_at(index).done!
   end
 
   def mark_undone_at(index)
-    self.item_at(index).undone!
+    item_at(index).undone!
   end
 
   def done!
@@ -88,14 +90,52 @@ class TodoList
   end
 
   def remove_at(index)
-    element = todos.delete_at(index)
-    element ? element : (raise IndexError.new("Out of bounds"))
+    todos.delete_at(item_at(index))
   end
 
   def to_s
-    description = "---- Today's Todos ----\n"
-    todos.each { |todo| description << (todo.to_s << "\n")}
-    description
+    text = "---- Today's Todos ----\n"
+    text << todos.map(&:to_s).join("\n")
+    text
+  end
+
+  def each
+    todos.each do |todo|
+      yield(todo)
+    end
+    self
+  end
+
+  def select
+    list = TodoList.new(title)
+    todos.each do |todo|
+      list << todo if yield(todo)
+    end
+    list
+  end
+
+  def find_by_title(todo_title)
+    select { |todo| todo.title == todo_title }.first
+  end
+
+  def all_done
+    select { |todo| todo.done? }
+  end
+
+  def all_not_done
+    select { |todo| !todo.done? }
+  end
+
+  def mark_done(title)
+    find_by_title(title) && find_by_title(title).done!
+  end
+
+  def mark_all_done
+    each { |todo| todo.done! }
+  end
+
+  def mark_all_undone
+    each { |todo| todo.undone! }
   end
 
   private
