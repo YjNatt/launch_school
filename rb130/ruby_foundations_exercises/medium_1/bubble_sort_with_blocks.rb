@@ -1,0 +1,21 @@
+def bubble_sort!(array)
+  loop do
+    swapped = false
+
+      1.upto(array.size - 1) do |index|
+        if block_given?
+          # next if yield(array[index - 1], array[index])
+          first_element = yield(array[index - 1])
+          second_element = yield(array[index])
+          next if first_element <= second_element
+        else
+          next if array[index - 1] <= array[index]
+        end
+        array[index - 1], array[index] = array[index], array[index - 1]
+        swapped = true
+      end
+
+    break unless swapped
+  end
+  nil
+end
