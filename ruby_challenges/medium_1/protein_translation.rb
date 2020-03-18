@@ -20,12 +20,11 @@ class Translation
   }
 
   def self.of_codon(codon)
-    CODON_TO_AMINO[codon]
+    protein = CODON_TO_AMINO[codon]
+    protein.nil? ? (raise InvalidCodonError) : protein
   end
 
   def self.of_rna(strand)
-    raise InvalidCodonError if /[^UAG]/.match?(strand)
-
     codons = strand.scan(/.../).take_while do |codon|
       of_codon(codon) != 'STOP'
     end
