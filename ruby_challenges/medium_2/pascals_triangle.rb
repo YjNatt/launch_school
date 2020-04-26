@@ -16,5 +16,3 @@ class Triangle
     total_rows
   end
 end
-
-Triangle.new(5).rows.last
