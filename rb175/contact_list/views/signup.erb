@@ -1,0 +1,12 @@
+<h3>Create an account</h3>
+<form action="/signup" method="post">
+  <div>
+    <label for="username">Enter username:</label>
+    <input name="username" id="username" value="<%= params[:username] %>">
+  </div>
+  <div>
+    <label for="password">Enter password:</label>
+    <input type="password" name="password" id="password">
+  </div>
+  <button type="submit">Submit</button>
+</form>
