@@ -4,24 +4,25 @@ class House
   end
 
   def recite
-    create_verses.map do |verse|
-      verse.strip << ".\n"
-    end.join("\n")
+    pieces.map.with_index do |_, index|
+      verse(pieces[index..-1])
+    end.reverse.join("\n")
   end
+
+def verse(pieces)
+  verse = "This is " 
+  pieces.each do |first_part, second_part|
+    verse += first_part
+    if second_part
+      verse += "\n" + second_part + " "
+    else
+      verse += ".\n"
+    end
+  end
+  verse
+end
 
   private
-
-  def create_verses
-    verses = []
-    (0...pieces.length).each do |index|
-      verse = "This is #{pieces[index].first}\n"
-      ((index + 1)...pieces.length).each do |index2|
-        verse << "#{pieces[index2 - 1][1]} #{pieces[index2][0]}\n"
-      end
-      verses.unshift(verse)
-    end
-    verses
-  end
 
   def pieces
     [
