@@ -1,2 +1,7 @@
 ---
-admin: $2a$12$xgUDiRP6mMbWHzGmeXOJMu0caTje/Ha4cJXitKGpvzxf0ugAQ/Pp.
+admin: !ruby/string:BCrypt::Password
+  str: "$2a$12$L6XVKbCOTttKnEqlRZGQeesXuZXV/NtPXRULlS8.f62D3bC5ekVC6"
+  version: 2a
+  cost: 12
+  salt: "$2a$12$L6XVKbCOTttKnEqlRZGQee"
+  checksum: sXuZXV/NtPXRULlS8.f62D3bC5ekVC6

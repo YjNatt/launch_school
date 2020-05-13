@@ -24,16 +24,46 @@ def load_users_credentials
   else
     File.expand_path("../users.yml", __FILE__)
   end
-  YAML.load_file(credentials_path)
+
+  credentials = YAML.load_file(credentials_path) || {}
+
+  if block_given?
+    updated_credentials = yield credentials
+    File.open(credentials_path, "w") do |file|
+      file.write(updated_credentials.to_yaml)
+    end
+  else
+    credentials
+  end
 end
 
 def valid_credentials?(username, password)
   credentials = load_users_credentials
+  credentials[username] == password
+end
+
+def error_for_username(username)
+  credentials = load_users_credentials
   if credentials.key?(username)
-    bcrypt_password = BCrypt::Password.new(credentials[username])
-    bcrypt_password == password
-  else
-    false
+    "Username is taken" 
+  elsif username.empty?
+    "Username cannot be empty"
+  elsif username.match?(/[^a-zA-Z0-9]/)
+    "Username can only consists of letters and digits"
+  elsif username.length < 4
+    "Username must be at least 4 characters long"
+  end
+end
+
+def error_for_password(password1, password2)
+  if password1.empty?
+    "Password cannot be empty"
+  elsif password1.match?(/[^a-zA-Z0-9]/)
+    "Password can only consists of letters and digits"
+  elsif password1.length < 6
+    "Password must be at least 6 characters long"
+  elsif password1 != password2
+    "Passwords do not match"
   end
 end
 
@@ -52,5 +82,29 @@ post "/" do
     status 422
     session[:message] = "Invalid username or password"
     erb :index
+  end
+end
+
+# Display signup form
+get "/signup" do
+  erb :signup
+end
+
+# Create user
+post "/signup" do
+  error = error_for_username(params[:username]) ||
+          error_for_password(params[:password], params[:validatepassword])
+  if error
+    status 422
+    session[:message] = error
+    erb :signup
+  else
+    load_users_credentials do |credentials|
+      bcrypt_password = BCrypt::Password.create(params[:password])
+      credentials[params[:username]] = bcrypt_password
+      credentials
+    end
+    session[:message] = "Account has been created"
+    redirect "/#{params[:username]}"
   end
 end
