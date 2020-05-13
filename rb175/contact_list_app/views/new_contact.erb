@@ -1,0 +1,20 @@
+<p>Enter new Contact's details</p>
+
+<form action="/<%= session[:username] %>" method="post">
+  <label for="fname">First name:</label>
+  <input name="fname" id="fname">
+
+  <label for="lname">Last name:</label>
+  <input name="lname" id="lname">
+
+  <label for="phone">Phone number:</label>
+  <input name="phone" id="phone" type="tel">
+
+  <label for="email">Email:</label>
+  <input name="email" id="email">
+
+  <label for="group">Group:</label>
+  <input name="group" id="group" placeholder="Work, friend, family, etc.">
+
+  <button type="submit">Submit</button>
+</form>

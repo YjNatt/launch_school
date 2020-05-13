@@ -1,0 +1,7 @@
+---
+1: !ruby/object:Contact
+  fname: John
+  lname: Smith
+  phone: 123-456-7890
+  email: example@example.com
+  group: Friend

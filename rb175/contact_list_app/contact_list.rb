@@ -5,6 +5,8 @@ require "tilt/erubis"
 require "yaml"
 require "bcrypt"
 
+require_relative "lib/contact.rb"
+
 configure do
   enable :sessions
   set :session_secret, 'secret'
@@ -34,6 +36,20 @@ def load_users_credentials
     end
   else
     credentials
+  end
+end
+
+def load_contacts(username)
+  contacts_path = File.join(data_path, "#{username}.yml")
+  contacts = YAML.load_file(contacts_path) || {}
+
+  if block_given?
+    updated_contacts = yield contacts
+    File.open(contacts_path, "w") do |file|
+      file.write(updated_contacts.to_yaml)
+    end
+  else
+    contacts
   end
 end
 
@@ -72,6 +88,11 @@ def create_file_for_user(username)
   File.new(path, "w")
 end
 
+def next_contact_id(contacts)
+  max = contacts.keys.max || 0
+  max += 1
+end
+
 # Display homepage
 get "/" do
   erb :index
@@ -79,10 +100,13 @@ end
 
 # Sign user in
 post "/" do
+  username = params[:username]
   credentials = load_users_credentials
-  if valid_credentials?(params[:username], params[:password])
+
+  if valid_credentials?(username, params[:password])
+    session[:username] = username
     session[:message] = "Welcome!"
-    redirect("/#{params[:username]}")
+    redirect("/#{username}")
   else
     status 422
     session[:message] = "Invalid username or password"
@@ -97,7 +121,8 @@ end
 
 # Create user
 post "/signup" do
-  error = error_for_username(params[:username]) ||
+  username = params[:username].strip
+  error = error_for_username(username) ||
           error_for_password(params[:password], params[:validatepassword])
   if error
     status 422
@@ -106,12 +131,43 @@ post "/signup" do
   else
     load_users_credentials do |credentials|
       bcrypt_password = BCrypt::Password.create(params[:password])
-      credentials[params[:username]] = bcrypt_password
+      credentials[username] = bcrypt_password
       credentials
     end
 
-    create_file_for_user(params[:username])
+    create_file_for_user(username)
+    session[:username] = username
     session[:message] = "Account has been created"
-    redirect "/#{params[:username]}"
+    redirect "/#{username}"
   end
+end
+
+# Display user contacts
+get "/:username" do
+  @contacts = load_contacts(params[:username])
+  erb :contacts
+end
+
+# Display contact form
+get "/:username/contact" do
+  erb :new_contact
+end
+
+# Create contact
+post "/:username" do
+  fname = params[:fname]
+  lname = params[:lname]
+  phone = params[:phone]
+  email = params[:email]
+  group = params[:group]
+  contacts = load_contacts(params[:username])
+  id = next_contact_id(contacts)
+
+  contact = Contact.new(fname, lname, phone, email, group)
+  load_contacts(params[:username]) do |contacts|
+    contacts[id] = contact
+    contacts
+  end
+
+  redirect "/#{params[:username]}"
 end
