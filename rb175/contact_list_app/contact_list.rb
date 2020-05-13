@@ -67,6 +67,11 @@ def error_for_password(password1, password2)
   end
 end
 
+def create_file_for_user(username)
+  path = File.join(data_path, "#{username}.yml")
+  File.new(path, "w")
+end
+
 # Display homepage
 get "/" do
   erb :index
@@ -104,6 +109,8 @@ post "/signup" do
       credentials[params[:username]] = bcrypt_password
       credentials
     end
+
+    create_file_for_user(params[:username])
     session[:message] = "Account has been created"
     redirect "/#{params[:username]}"
   end
