@@ -14,7 +14,11 @@ class Contact
     " Phone: #{@phone}, Email: #{@email}, Group: #{@group}"
   end
 
+  def name
+    "#{fname} #{lname}"
+  end
+
   def details
-    [fname, lname, phone, email, group]
+    [name, phone, email, group]
   end
 end

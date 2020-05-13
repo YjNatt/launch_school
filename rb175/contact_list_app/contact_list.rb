@@ -12,6 +12,17 @@ configure do
   set :session_secret, 'secret'
 end
 
+helpers do
+  def sort_contacts(contacts, &block)
+    sorted_contacts = if session[:sortby] == "group"
+      contacts.sort_by { |id, contact| contact.group }.to_h
+    else
+      contacts.sort_by { |id, contact| contact.name }.to_h
+    end
+    sorted_contacts.each(&block)
+  end
+end
+
 def data_path
   if ENV["RACK_ENV"] == "test"
     File.expand_path("../test/data", __FILE__)
@@ -83,6 +94,17 @@ def error_for_password(password1, password2)
   end
 end
 
+def error_for_creating_contact(fname, lname, phone, email, group)
+  if fname.empty?
+    "First name cannot be empty"
+  elsif group.empty?
+    "Group cannot be empty"
+  elsif phone.match?(/[^0-9\- ()]/)
+    "Phone number can only contain digits, spaces, -, and ()"
+  end
+end
+
+
 def create_file_for_user(username)
   path = File.join(data_path, "#{username}.yml")
   File.new(path, "w")
@@ -148,6 +170,12 @@ get "/:username" do
   erb :contacts
 end
 
+# Sort user contacts
+post "/:username/sortby" do
+  session[:sortby] = params[:sortby]
+  redirect "/#{params[:username]}"
+end
+
 # Display contact form
 get "/:username/contact" do
   erb :new_contact
@@ -155,19 +183,29 @@ end
 
 # Create contact
 post "/:username" do
-  fname = params[:fname]
-  lname = params[:lname]
-  phone = params[:phone]
-  email = params[:email]
-  group = params[:group]
-  contacts = load_contacts(params[:username])
-  id = next_contact_id(contacts)
+  fname = params[:fname].strip
+  lname = params[:lname].strip
+  phone = params[:phone].strip
+  email = params[:email].strip
+  group = params[:group].strip
 
-  contact = Contact.new(fname, lname, phone, email, group)
-  load_contacts(params[:username]) do |contacts|
-    contacts[id] = contact
-    contacts
+  error = error_for_creating_contact(fname, lname, phone, email, group)
+
+  if error
+    status 422
+    session[:message] = error
+    erb :new_contact
+  else
+    contact = Contact.new(fname, lname, phone, email, group)
+
+    load_contacts(params[:username]) do |contacts|
+      id = next_contact_id(contacts)
+      contacts[id] = contact
+      contacts
+    end
+
+    redirect "/#{params[:username]}"
   end
-
-  redirect "/#{params[:username]}"
 end
+
+

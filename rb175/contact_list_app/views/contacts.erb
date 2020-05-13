@@ -1,2 +1,27 @@
 <p><%= session[:username] %>'s contacts</p>
+<div>
+  <p>Select by:</p>
+  <form action="/<%= session[:username] %>/sortby" method="post">
+    <input type="hidden" name="sortby" value="name">
+    <button type="submit">Name</button>
+  </form>
+
+  <form action="/<%= session[:username] %>/sortby" method="post">
+    <input type="hidden" name="sortby" value="group">
+    <button type="submit">Group</button>
+  </form>
+</div>
+
+<div>
+  <% sort_contacts(@contacts) do |id, contact| %>
+    <ul>
+      <% contact.details.each do |detail| %>
+        <li><%= detail %>
+      <% end %>
+      <form action="/<%= session[:username] %>/<%= id %>/delete" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </ul>
+  <% end %>
+</div>
 <a href="<%= session[:username] %>/contact">Add contact</a>
