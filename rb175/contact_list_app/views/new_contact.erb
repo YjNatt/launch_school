@@ -1,20 +1,30 @@
 <p>Enter new Contact's details</p>
 
 <form action="/<%= session[:username] %>" method="post">
-  <label for="fname">First name:</label>
-  <input name="fname" id="fname" value="<%= params[:fname] %>">
+  <div>
+    <label for="fname">First name:</label>
+    <input name="fname" id="fname" value="<%= params[:fname] %>">
+  </div>
 
-  <label for="lname">Last name:</label>
-  <input name="lname" id="lname" value="<%= params[:lname] %>">
+  <div>
+    <label for="lname">Last name:</label>
+    <input name="lname" id="lname" value="<%= params[:lname] %>">
+  </div>
 
-  <label for="phone">Phone number:</label>
-  <input name="phone" id="phone" type="tel" value="<%= params[:phone] %>">
+  <div>
+    <label for="phone">Phone number:</label>
+    <input name="phone" id="phone" type="tel" value="<%= params[:phone] %>">
+  </div>
 
-  <label for="email">Email:</label>
-  <input name="email" id="email" value="<%= params[:email] %>">
+  <div>
+    <label for="email">Email:</label>
+    <input name="email" id="email" value="<%= params[:email] %>">
+  </div>
 
-  <label for="group">Group:</label>
-  <input name="group" id="group" placeholder="Work, friend, family, etc." value="<%= params[:group] %>">
+  <div>
+    <label for="group">Group:</label>
+    <input name="group" id="group" placeholder="Work, friend, family, etc." value="<%= params[:group] %>">
+  </div>
 
   <button type="submit">Submit</button>
 </form>

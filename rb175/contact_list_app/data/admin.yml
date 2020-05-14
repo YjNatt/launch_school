@@ -1,7 +1,1 @@
----
-1: !ruby/object:Contact
-  fname: Z
-  lname: Z
-  group: Friend
-  phone: ''
-  email: ''
+--- {}
