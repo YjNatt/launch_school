@@ -1,0 +1,20 @@
+<p>Edit Contact's details</p>
+
+<form action="/<%= session[:username] %>/<%= params[:id] %>" method="post">
+  <label for="fname">First name:</label>
+  <input name="fname" id="fname" value="<%= params[:fname] || @contact.fname %>">
+
+  <label for="lname">Last name:</label>
+  <input name="lname" id="lname" value="<%= params[:lname] || @contact.lname %>">
+
+  <label for="phone">Phone number:</label>
+  <input name="phone" id="phone" type="tel" value="<%= params[:phone] || @contact.phone %>">
+
+  <label for="email">Email:</label>
+  <input name="email" id="email" value="<%= params[:email] || @contact.email %>">
+
+  <label for="group">Group:</label>
+  <input name="group" id="group" placeholder="Work, friend, family, etc." value="<%= params[:group] || @contact.group %>">
+
+  <button type="submit">Submit</button>
+</form>

@@ -15,7 +15,13 @@ end
 helpers do
   def sort_contacts(contacts, &block)
     sorted_contacts = if session[:sortby] == "group"
-      contacts.sort_by { |id, contact| contact.group }.to_h
+      contacts.sort do |contact1, contact2|
+        if contact1[1].group == contact2[1].group
+          contact1[1].name <=> contact2[1].name
+        else
+          contact1[1].group <=> contact2[1].group
+        end
+      end.to_h
     else
       contacts.sort_by { |id, contact| contact.name }.to_h
     end
@@ -136,6 +142,13 @@ post "/" do
   end
 end
 
+post "/signout" do
+  session.delete(:username)
+  session.delete(:sortby)
+  session[:message] = "You have signed out"
+  redirect "/"
+end
+
 # Display signup form
 get "/signup" do
   erb :signup
@@ -181,22 +194,25 @@ get "/:username/contact" do
   erb :new_contact
 end
 
-# Create contact
-post "/:username" do
+def contact_form_details
   fname = params[:fname].strip
   lname = params[:lname].strip
   phone = params[:phone].strip
   email = params[:email].strip
   group = params[:group].strip
+  [fname, lname, phone, email, group]
+end
 
-  error = error_for_creating_contact(fname, lname, phone, email, group)
+# Create contact
+post "/:username" do
+  error = error_for_creating_contact(*contact_form_details)
 
   if error
     status 422
     session[:message] = error
     erb :new_contact
   else
-    contact = Contact.new(fname, lname, phone, email, group)
+    contact = Contact.new(*contact_form_details)
 
     load_contacts(params[:username]) do |contacts|
       id = next_contact_id(contacts)
@@ -208,4 +224,47 @@ post "/:username" do
   end
 end
 
+# Display contact edit form
+get "/:username/:id/edit" do
+  contacts = load_contacts(params[:username])
+  @contact = contacts[params[:id].to_i]
+  erb :edit_contact
+end
 
+def update_contact_info(contact)
+  contact.fname = params[:fname].strip
+  contact.lname = params[:lname].strip
+  contact.phone = params[:phone].strip
+  contact.email = params[:email].strip
+  contact.group = params[:group].strip
+end
+
+# Update contact
+post "/:username/:id" do
+  error = error_for_creating_contact(*contact_form_details)
+
+  if error
+    status 422
+    session[:message] = error
+    erb :edit_contact
+  else
+    load_contacts(params[:username]) do |contacts|
+      contact = contacts[params[:id].to_i]
+      update_contact_info(contact)
+      contacts
+    end
+    session[:message] = "Contact updated"
+    redirect "/#{params[:username]}"
+  end
+end
+
+# Delete contact
+post "/:username/:id/delete" do
+  load_contacts(params[:username]) do |contacts|
+    contacts.delete(params[:id].to_i)
+    contacts
+  end
+
+  session[:message] = "Contact deleted"
+  redirect "/#{params[:username]}"
+end

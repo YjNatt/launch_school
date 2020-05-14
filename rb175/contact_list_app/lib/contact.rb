@@ -1,12 +1,13 @@
 class Contact
   attr_reader :fname, :lname, :phone, :email, :group
+  attr_writer :phone, :email
 
   def initialize(fname, lname, phone, email, group)
-    @fname = fname.capitalize
-    @lname = lname.capitalize
+    self.fname = fname
+    self.lname = lname
+    self.group = group
     @phone = phone
     @email = email
-    @group = group.capitalize
   end
 
   def to_s
@@ -20,5 +21,17 @@ class Contact
 
   def details
     [name, phone, email, group]
+  end
+
+  def fname=(fname)
+    @fname = fname.capitalize
+  end
+
+  def lname=(lname)
+    @lname = lname.capitalize
+  end
+
+  def group=(group)
+    @group = group.capitalize
   end
 end

@@ -1,6 +1,6 @@
 <p><%= session[:username] %>'s contacts</p>
 <div>
-  <p>Select by:</p>
+  <p>Sort by:</p>
   <form action="/<%= session[:username] %>/sortby" method="post">
     <input type="hidden" name="sortby" value="name">
     <button type="submit">Name</button>
@@ -16,12 +16,19 @@
   <% sort_contacts(@contacts) do |id, contact| %>
     <ul>
       <% contact.details.each do |detail| %>
+        <% next if detail.empty? %>
         <li><%= detail %>
       <% end %>
       <form action="/<%= session[:username] %>/<%= id %>/delete" method="post">
         <button type="submit">Delete</button>
       </form>
+      <a href="/<%= session[:username] %>/<%= id %>/edit">Edit</a>
     </ul>
   <% end %>
 </div>
+
 <a href="<%= session[:username] %>/contact">Add contact</a>
+
+<form action="/signout" method="post">
+  <button type="submit">Sign out</button>
+</form>

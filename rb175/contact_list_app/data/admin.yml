@@ -1,25 +1,25 @@
 ---
 1: !ruby/object:Contact
-  fname: John
-  lname: Smith
-  phone: 123-456-7890
-  email: example@example.com
+  fname: Z
+  lname: Z
   group: Friend
+  phone: ''
+  email: ''
 2: !ruby/object:Contact
-  fname: John
-  lname: Nat
-  phone: 778-232-3286
-  email: example@example.com
-  group: Family
+  fname: Y
+  lname: Y
+  group: Friend
+  phone: ''
+  email: ''
 3: !ruby/object:Contact
   fname: A
-  lname: Example
-  phone: 123-456-7890
-  email: example@example.com
+  lname: A
   group: Work
+  phone: ''
+  email: ''
 4: !ruby/object:Contact
   fname: B
-  lname: Example
-  phone: 123-456-7890
-  email: example@example.com
-  group: Friend
+  lname: B
+  group: Work
+  phone: ''
+  email: ''

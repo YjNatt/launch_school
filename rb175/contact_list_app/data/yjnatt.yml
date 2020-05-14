@@ -1,0 +1,19 @@
+---
+1: !ruby/object:Contact
+  fname: Haewon
+  lname: Kang
+  group: Partner
+  phone: 123-456-7890
+  email: hk@gmail.com
+2: !ruby/object:Contact
+  fname: John
+  lname: Nattrass
+  group: Family
+  phone: 987-654-3210
+  email: jn@example.com
+3: !ruby/object:Contact
+  fname: Marnina
+  lname: Nattrass
+  group: Family
+  phone: 456-789-9878
+  email: mn@example.com
