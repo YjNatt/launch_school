@@ -1,5 +1,5 @@
 <p><%= session[:username] %>'s contacts</p>
-<div>
+<div class="inline-container">
   <p>Sort by:</p>
   <form action="/<%= session[:username] %>/sortby" method="post">
     <input type="hidden" name="sortby" value="name">

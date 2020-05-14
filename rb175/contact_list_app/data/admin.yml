@@ -5,21 +5,9 @@
   group: Friend
   phone: ''
   email: ''
-2: !ruby/object:Contact
-  fname: Y
-  lname: Y
-  group: Friend
-  phone: ''
-  email: ''
 3: !ruby/object:Contact
   fname: A
   lname: A
-  group: Work
-  phone: ''
-  email: ''
-4: !ruby/object:Contact
-  fname: B
-  lname: B
   group: Work
   phone: ''
   email: ''
