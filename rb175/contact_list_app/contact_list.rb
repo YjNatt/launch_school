@@ -75,6 +75,17 @@ def valid_credentials?(username, password)
   credentials[username] == password
 end
 
+def user_signed_in?
+  session.key?(:username)
+end
+
+def required_signed_in_user
+  unless user_signed_in?
+    session[:message] = "You must be signed in to do that."
+    redirect "/"
+  end
+end
+
 def error_for_username(username)
   credentials = load_users_credentials
   if credentials.key?(username)
@@ -142,6 +153,7 @@ post "/" do
   end
 end
 
+# Signout user
 post "/signout" do
   session.delete(:username)
   session.delete(:sortby)
@@ -179,6 +191,7 @@ end
 
 # Display user contacts
 get "/:username" do
+  required_signed_in_user
   @contacts = load_contacts(params[:username])
   erb :contacts
 end
@@ -205,6 +218,7 @@ end
 
 # Create contact
 post "/:username" do
+  required_signed_in_user
   error = error_for_creating_contact(*contact_form_details)
 
   if error
@@ -226,6 +240,7 @@ end
 
 # Display contact edit form
 get "/:username/:id/edit" do
+  required_signed_in_user
   contacts = load_contacts(params[:username])
   @contact = contacts[params[:id].to_i]
   erb :edit_contact
@@ -241,6 +256,7 @@ end
 
 # Update contact
 post "/:username/:id" do
+  required_signed_in_user
   error = error_for_creating_contact(*contact_form_details)
 
   if error
@@ -260,6 +276,7 @@ end
 
 # Delete contact
 post "/:username/:id/delete" do
+  required_signed_in_user
   load_contacts(params[:username]) do |contacts|
     contacts.delete(params[:id].to_i)
     contacts

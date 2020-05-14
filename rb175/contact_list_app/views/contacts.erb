@@ -1,14 +1,9 @@
 <p><%= session[:username] %>'s contacts</p>
 <div class="inline-container">
-  <p>Sort by:</p>
   <form action="/<%= session[:username] %>/sortby" method="post">
-    <input type="hidden" name="sortby" value="name">
-    <button type="submit">Name</button>
-  </form>
-
-  <form action="/<%= session[:username] %>/sortby" method="post">
-    <input type="hidden" name="sortby" value="group">
-    <button type="submit">Group</button>
+    <label for="sortby">Sort by:</label> 
+    <button type="submit" id="sortby" name="sortby" value="name">Name</button>
+    <button type="submit"id="sortby" name="sortby" value="group">Group</button>
   </form>
 </div>
 
