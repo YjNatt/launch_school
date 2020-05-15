@@ -17,6 +17,10 @@ class AppTest < Minitest::Test
     last_request.env["rack.session"]
   end
 
+  def admin_session
+    { "rack.session" => { username: "admin" }}
+  end
+
   def test_index
     get "/"
     assert_equal 200, last_response.status
@@ -35,5 +39,7 @@ class AppTest < Minitest::Test
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Invalid username or password"
   end
+
+  def
 end
 
