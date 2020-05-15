@@ -29,5 +29,11 @@ class AppTest < Minitest::Test
     assert_equal "admin", session[:username]
   end
 
+  def test_invalid_credentials
+    post "/", {username: "invalid", password: "invalid"}
+    assert_nil session[:username]
+    assert_equal 422, last_response.status
+    assert_equal "Invalid username or password", session[:message]
+  end
 end
 
