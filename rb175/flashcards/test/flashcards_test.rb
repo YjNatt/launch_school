@@ -51,5 +51,14 @@ class AppTest < Minitest::Test
     get last_response["Location"]
     assert_nil session[:username]
   end
+
+  def test_display_decks_signed_out
+    get "/admin"
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
+
+    get last_response["Location"]
+    assert_includes last_response.body, %q(button type="submit">Sign in)
+  end
 end
 
