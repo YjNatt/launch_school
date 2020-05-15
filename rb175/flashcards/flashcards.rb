@@ -4,3 +4,7 @@ require "sinatra/content_for"
 require "tilt/erubis"
 require "yaml"
 require "bcrypt"
+
+get "/" do
+  erb :index
+end
