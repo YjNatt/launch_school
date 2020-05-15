@@ -23,7 +23,8 @@ end
 def valid_credentials?(username, password)
   credentials = load_user_credentials
   if credentials.key?(username)
-    credentials[username] == password
+    bcrypt_password = BCrypt::Password.new(credentials[username])
+    bcrypt_password == password
   else
     false
   end
