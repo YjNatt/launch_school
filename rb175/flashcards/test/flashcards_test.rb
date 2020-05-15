@@ -40,6 +40,16 @@ class AppTest < Minitest::Test
     assert_includes last_response.body, "Invalid username or password"
   end
 
-  def
+  def test_signout
+    get "/admin", {}, admin_session
+    assert_includes last_response.body, "Welcome, admin"
+
+    post "/signout"
+    assert_equal 302, last_response.status
+    assert_equal "You have signed out", session[:message]
+
+    get last_response["Location"]
+    assert_nil session[:username]
+  end
 end
 
