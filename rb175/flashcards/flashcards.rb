@@ -18,9 +18,9 @@ def data_path
   end
 end
 
-def load_decks(username)
-  path = File.join(data_path, "#{username}.yml")
-  YAML.load_file(path) || {}
+def load_all_decks(username)
+  path = File.join(data_path, "#{username}", "*.yml")
+  Dir.glob(path).map { |file| File.basename(file, ".yml") }
 end
 
 def load_user_credentials
@@ -84,6 +84,7 @@ end
 # Display user flashcards
 get "/:username/decks" do
   required_signed_in_user
+  @decks = load_all_decks(params[:username])
   erb :decks
 end
 
@@ -96,5 +97,4 @@ end
 # create deck
 post "/:username/decks" do
   deck_name = params[:name]
-
 end
