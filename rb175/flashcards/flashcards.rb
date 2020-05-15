@@ -18,6 +18,10 @@ def data_path
   end
 end
 
+def user_decks_path(username)
+  File.expand_path(data_path, "#{username}")
+end
+
 def load_all_decks(username)
   path = File.join(data_path, "#{username}", "*.yml")
   Dir.glob(path).map { |file| File.basename(file, ".yml") }
