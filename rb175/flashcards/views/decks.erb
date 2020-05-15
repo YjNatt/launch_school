@@ -1,4 +1,6 @@
 <p>Welcome, <%= session[:username] %></p>
+<a href="/<%= session[:username] %>/decks/new">Create a new deck</a>
 <form action="/signout" method="post">
   <button type="submit">Sign out</button>
 </form>
+
