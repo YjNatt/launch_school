@@ -66,7 +66,7 @@ post "/" do
 
   if valid_credentials?(username, password)
     session[:username] = username
-    redirect "/#{username}"
+    redirect "/#{username}/decks"
   else
     status 422
     session[:message] = "Invalid username or password"
@@ -82,7 +82,14 @@ post "/signout" do
 end
 
 # Display user flashcards
-get "/:username" do
+get "/:username/decks" do
   required_signed_in_user
-  erb :flashcards
+  erb :decks
 end
+
+# render form to create deck
+get "/:username/decks/new" do
+  required_signed_in_user
+  erb :new_decks
+end
+
