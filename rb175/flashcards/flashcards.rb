@@ -18,6 +18,11 @@ def data_path
   end
 end
 
+def load_decks(username)
+  path = File.join(data_path, "#{username}.yml")
+  YAML.load_file(path) || {}
+end
+
 def load_user_credentials
   credentials_path = if ENV["RACK_ENV"] == "test"
     File.expand_path("../test/users.yml", __FILE__)
