@@ -100,10 +100,22 @@ end
 
 # create deck
 post "/:username/decks" do
+  required_signed_in_user
   username = params[:username]
   deck_name = params[:name]
-  path = user_decks_path(username)
-  file_name = File.join(path, "#{deck_name}.yml")
-  File.new(file_name, "w")
-  redirect "/#{username}/decks"
+
+  error = error_for_deck_name
+
+  if error
+    status 422
+    session[:message] = error
+    erb :new_decks
+  else
+    path = user_decks_path(username)
+    file_name = File.join(path, "#{deck_name}.yml")
+    File.new(file_name, "w")
+
+    session[:message] = "Deck created"
+    redirect "/#{username}/decks"
+  end
 end
