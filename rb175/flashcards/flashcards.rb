@@ -19,11 +19,11 @@ def data_path
 end
 
 def user_decks_path(username)
-  File.expand_path(data_path, "#{username}")
+  File.join(data_path, "#{username}")
 end
 
 def load_all_decks(username)
-  path = File.join(data_path, "#{username}", "*.yml")
+  path = File.join(user_decks_path(username), "*.yml")
   Dir.glob(path).map { |file| File.basename(file, ".yml") }
 end
 
@@ -100,5 +100,10 @@ end
 
 # create deck
 post "/:username/decks" do
+  username = params[:username]
   deck_name = params[:name]
+  path = user_decks_path(username)
+  file_name = File.join(path, "#{deck_name}.yml")
+  File.new(file_name, "w")
+  redirect "/#{username}/decks"
 end
