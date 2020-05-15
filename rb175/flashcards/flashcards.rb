@@ -83,5 +83,6 @@ end
 
 # Display user flashcards
 get "/:username" do
+  required_signed_in_user
   erb :flashcards
 end
