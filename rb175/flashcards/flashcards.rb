@@ -93,3 +93,8 @@ get "/:username/decks/new" do
   erb :new_decks
 end
 
+# create deck
+post "/:username/decks" do
+  deck_name = params[:name]
+
+end
