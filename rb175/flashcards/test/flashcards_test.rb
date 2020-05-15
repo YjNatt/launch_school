@@ -91,5 +91,13 @@ class AppTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
   end
+
+  def test_create_deck_invalid_name
+    create_admin_folder
+
+    post "/admin/decks", { name: "!@2,." }, admin_session
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Deck name can only consist of alphabet characters and digits"
+  end
 end
 
