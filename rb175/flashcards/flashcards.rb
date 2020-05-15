@@ -63,6 +63,13 @@ post "/" do
   end
 end
 
+#Signout user
+post "/signout" do
+  session.delete(:username)
+  session[:message] = "You have signed out"
+  redirect "/"
+end
+
 # Display user flashcards
 get "/:username" do
   erb :flashcards
