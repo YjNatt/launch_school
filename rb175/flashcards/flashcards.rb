@@ -5,6 +5,11 @@ require "tilt/erubis"
 require "yaml"
 require "bcrypt"
 
+configure do
+  enable :sessions
+  set :session_secret, 'secret'
+end
+
 def load_user_credentials
   credentials_path = if ENV["RACK_ENV"] == "test"
     File.expand_path("../test/users.yml", __FILE__)
@@ -29,9 +34,15 @@ get "/" do
 end
 
 post "/" do
-  if valid_credentials?(params[:username], params[:password])
-    redirect "/#{params[:username]}"
+  username = params[:username]
+  password = params[:password]
+
+  if valid_credentials?(username, password)
+    session[:username] = username
+    redirect "/#{username}"
   else
+    status 422
+    session[:message] = "Invalid username or password"
     erb :index
   end
 end
