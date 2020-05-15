@@ -30,10 +30,12 @@ def valid_credentials?(username, password)
   end
 end
 
+# Display index page
 get "/" do
   erb :index
 end
 
+# Signin user
 post "/" do
   username = params[:username]
   password = params[:password]
@@ -46,4 +48,9 @@ post "/" do
     session[:message] = "Invalid username or password"
     erb :index
   end
+end
+
+# Display user flashcards
+get "/:username" do
+  erb :flashcards
 end
