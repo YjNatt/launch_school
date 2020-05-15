@@ -59,10 +59,13 @@ def required_signed_in_user
 end
 
 def error_for_deck_name(name)
+  decks = load_all_decks(params[:username])
   if name.empty?
     "Deck name cannot be empty"
   elsif name.match?(/[^a-zA-Z0-9]/)
     "Deck name can only consist of alphabet characters and digits"
+  elsif decks.map(&:downcase).include?(name.downcase)
+    "Deck name already exists"
   end
 end
 
