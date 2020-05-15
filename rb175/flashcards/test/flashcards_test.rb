@@ -84,5 +84,12 @@ class AppTest < Minitest::Test
     get last_response["Location"]
     assert_includes last_response.body, "example"
   end
+
+  def test_create_decks_signed_out
+    create_admin_folder
+    post "/admin/decks", { name: "example" }
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
+  end
 end
 
