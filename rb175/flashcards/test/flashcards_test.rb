@@ -33,7 +33,7 @@ class AppTest < Minitest::Test
     post "/", {username: "invalid", password: "invalid"}
     assert_nil session[:username]
     assert_equal 422, last_response.status
-    assert_equal "Invalid username or password", session[:message]
+    assert_includes last_response.body, "Invalid username or password"
   end
 end
 
