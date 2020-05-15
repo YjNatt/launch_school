@@ -43,6 +43,17 @@ def valid_credentials?(username, password)
   end
 end
 
+def user_signed_in?
+  session.key?(:username)
+end
+
+def required_signed_in_user
+  unless user_signed_in?
+    session[:message] = "You must sign in first"
+    redirect "/"
+  end
+end
+
 # Display index page
 get "/" do
   erb :index
