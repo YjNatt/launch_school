@@ -29,6 +29,11 @@ class AppTest < Minitest::Test
     FileUtils.rm_rf(data_path)
   end
 
+  def create_admin_folder
+    path = File.join(data_path, "admin")
+    FileUtils.mkdir_p(path)
+  end
+
   def test_index
     get "/"
     assert_equal 200, last_response.status
@@ -67,6 +72,17 @@ class AppTest < Minitest::Test
 
     get last_response["Location"]
     assert_includes last_response.body, %q(button type="submit">Sign in)
+  end
+
+  def test_create_deck
+    create_admin_folder
+
+    post "/admin/decks", { name: "example" }, admin_session
+    assert_equal 302, last_response.status
+    assert_equal "Deck created", session[:message]
+
+    get last_response["Location"]
+    assert_includes last_response.body, "example"
   end
 end
 
