@@ -2,6 +2,7 @@
   <head>
   </head>
   <body>
+  <p><%= session.delete(:message) if session[:message] %></p>
   
   <%= yield %>
 
