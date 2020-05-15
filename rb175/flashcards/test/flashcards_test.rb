@@ -41,7 +41,7 @@ class AppTest < Minitest::Test
   end
 
   def test_signout
-    get "/admin", {}, admin_session
+    get "/admin/decks", {}, admin_session
     assert_includes last_response.body, "Welcome, admin"
 
     post "/signout"
@@ -53,7 +53,7 @@ class AppTest < Minitest::Test
   end
 
   def test_display_decks_signed_out
-    get "/admin"
+    get "/admin/decks"
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
 
