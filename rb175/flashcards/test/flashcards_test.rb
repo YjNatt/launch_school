@@ -21,6 +21,14 @@ class AppTest < Minitest::Test
     { "rack.session" => { username: "admin" }}
   end
 
+  def setup 
+    FileUtils.mkdir_p(data_path)
+  end
+
+  def teardown
+    FileUtils.rm_rf(data_path)
+  end
+
   def test_index
     get "/"
     assert_equal 200, last_response.status
