@@ -15,7 +15,23 @@ def load_user_credentials
   YAML.load_file(credentials_path) || {}
 end
 
+def valid_credentials?(username, password)
+  credentials = load_user_credentials
+  if credentials.key?(username)
+    credentials[username] == password
+  else
+    false
+  end
+end
+
 get "/" do
   erb :index
 end
 
+post "/" do
+  if valid_credentials?(params[:username], params[:password])
+    redirect "/#{params[:username]}"
+  else
+    erb :index
+  end
+end
