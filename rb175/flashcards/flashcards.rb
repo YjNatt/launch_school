@@ -58,6 +58,14 @@ def required_signed_in_user
   end
 end
 
+def error_for_deck_name(name)
+  if name.empty?
+    "Deck name cannot be empty"
+  elsif name.match?(/[^a-zA-Z0-9]/)
+    "Deck name can only consist of alphabet characters and digits"
+  end
+end
+
 # Display index page
 get "/" do
   erb :index
@@ -102,9 +110,9 @@ end
 post "/:username/decks" do
   required_signed_in_user
   username = params[:username]
-  deck_name = params[:name]
+  deck_name = params[:name].strip
 
-  error = error_for_deck_name
+  error = error_for_deck_name(deck_name)
 
   if error
     status 422
