@@ -31,7 +31,13 @@ class AppTest < Minitest::Test
 
   def create_admin_file
     file_name = File.join(data_path, "admin.yml")
-    File.open(file_name, "w") { |file| file.write( {}.to_yaml ) }
+    test_deck = Deck.new("test")
+    File.open(file_name, "w") { |file| file.write({ 1 => test_deck }.to_yaml ) }
+  end
+
+  def load_admin_decks
+    file_name = File.join(data_path, "admin.yml")
+    YAML.load_file(file_name)
   end
 
   def test_index
@@ -106,6 +112,25 @@ class AppTest < Minitest::Test
 
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Deck name already exists"
+  end
+
+  def test_delete_deck
+    create_admin_file
+    assert_equal false, load_admin_decks.empty?
+
+    post "/admin/decks/1/delete", {}, admin_session
+    assert_equal 302, last_response.status
+    assert_equal "Deck deleted", session[:message]
+
+    get last_response["Location"]
+    assert_equal true, load_admin_decks.empty?
+  end
+
+  def test_delete_deck_signed_out
+    create_admin_file
+    post "/admin/decks/1/delete"
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
   end
 end
 
