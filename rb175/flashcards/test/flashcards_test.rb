@@ -34,6 +34,11 @@ class AppTest < Minitest::Test
     FileUtils.mkdir_p(path)
   end
 
+  def create_test_deck
+    file_name = File.join(data_path, "admin", "test.yml")
+    File.new(file_name, "w")
+  end
+
   def test_index
     get "/"
     assert_equal 200, last_response.status
@@ -76,7 +81,6 @@ class AppTest < Minitest::Test
 
   def test_create_deck
     create_admin_folder
-
     post "/admin/decks", { name: "example" }, admin_session
     assert_equal 302, last_response.status
     assert_equal "Deck created", session[:message]
@@ -94,10 +98,19 @@ class AppTest < Minitest::Test
 
   def test_create_deck_invalid_name
     create_admin_folder
-
     post "/admin/decks", { name: "!@2,." }, admin_session
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Deck name can only consist of alphabet characters and digits"
+  end
+
+  def test_create_deck_duplicate_name
+    create_admin_folder
+    create_test_deck
+    post "/admin/decks", { name: "test" }, admin_session
+
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Deck name already exists"
+
   end
 end
 
