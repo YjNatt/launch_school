@@ -182,3 +182,11 @@ post "/:username/decks/:id/edit" do
   end
 end
 
+# render deck page
+get "/:username/decks/:id" do
+  id = params[:id].to_i
+  decks = load_all_decks(params[:username])
+  @deck = decks.fetch(id)
+  erb :deck
+end
+
