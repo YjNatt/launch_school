@@ -1,7 +1,7 @@
 <p>Welcome, <%= session[:username] %></p>
 <ul>
   <% @decks.each do |id, deck| %>
-    <li><%= deck.name %></li>
+    <li><a href="/<%= session[:username] %>/decks/<%= id %>"><%= deck.name %></a></li>
     <form action="/<%= session[:username] %>/decks/<%= id %>/delete" method="post">
       <button type="submit">Delete</button>
     </form>
