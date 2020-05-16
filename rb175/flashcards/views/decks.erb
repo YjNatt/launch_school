@@ -1,7 +1,7 @@
 <p>Welcome, <%= session[:username] %></p>
 <ul>
-  <% @decks.each do |deck| %>
-    <li><a href="/<%= session[:username] %>/<%= deck %>"><%= deck %></a></li>
+  <% @decks.each do |id, deck| %>
+    <li><%= deck.name %></li>
   <% end %>
 </ul>
 <a href="/<%= session[:username] %>/decks/new">Create a new deck</a>

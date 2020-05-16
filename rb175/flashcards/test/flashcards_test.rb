@@ -29,14 +29,9 @@ class AppTest < Minitest::Test
     FileUtils.rm_rf(data_path)
   end
 
-  def create_admin_folder
-    path = File.join(data_path, "admin")
-    FileUtils.mkdir_p(path)
-  end
-
-  def create_test_deck
-    file_name = File.join(data_path, "admin", "test.yml")
-    File.new(file_name, "w")
+  def create_admin_file
+    file_name = File.join(data_path, "admin.yml")
+    File.open(file_name, "w") { |file| file.write( {}.to_yaml ) }
   end
 
   def test_index
@@ -59,6 +54,7 @@ class AppTest < Minitest::Test
   end
 
   def test_signout
+    create_admin_file
     get "/admin/decks", {}, admin_session
     assert_includes last_response.body, "Welcome, admin"
 
@@ -80,7 +76,7 @@ class AppTest < Minitest::Test
   end
 
   def test_create_deck
-    create_admin_folder
+    create_admin_file
     post "/admin/decks", { name: "example" }, admin_session
     assert_equal 302, last_response.status
     assert_equal "Deck created", session[:message]
@@ -90,22 +86,22 @@ class AppTest < Minitest::Test
   end
 
   def test_create_decks_signed_out
-    create_admin_folder
+    create_admin_file
     post "/admin/decks", { name: "example" }
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
   end
 
   def test_create_deck_invalid_name
-    create_admin_folder
+    create_admin_file
     post "/admin/decks", { name: "!@2,." }, admin_session
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Deck name can only consist of alphabet characters and digits"
   end
 
   def test_create_deck_duplicate_name
-    create_admin_folder
-    create_test_deck
+    create_admin_file
+    post "/admin/decks", { name: "test" }, admin_session
     post "/admin/decks", { name: "test" }, admin_session
 
     assert_equal 422, last_response.status

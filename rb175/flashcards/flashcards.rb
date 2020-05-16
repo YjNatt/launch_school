@@ -5,6 +5,8 @@ require "tilt/erubis"
 require "yaml"
 require "bcrypt"
 
+require_relative "lib/deck.rb"
+
 configure do
   enable :sessions
   set :session_secret, 'secret'
@@ -18,13 +20,25 @@ def data_path
   end
 end
 
-def user_decks_path(username)
-  File.join(data_path, "#{username}")
+def next_element_id(elements)
+  max = elements.keys.max || 0
+  max += 1
 end
 
 def load_all_decks(username)
-  path = File.join(user_decks_path(username), "*.yml")
-  Dir.glob(path).map { |file| File.basename(file, ".yml") }
+  path = File.join(data_path, "#{username}.yml")
+  YAML.load_file(path) || {}
+end
+
+def add_deck(username, deck)
+  file_name = File.join(data_path, "#{username}.yml")
+  decks = load_all_decks(username)
+  id = next_element_id(decks)
+  decks[id] = deck
+
+  File.open(file_name, "w") do |file|
+    file.write(decks.to_yaml)
+  end
 end
 
 def load_user_credentials
@@ -64,7 +78,7 @@ def error_for_deck_name(name)
     "Deck name cannot be empty"
   elsif name.match?(/[^a-zA-Z0-9]/)
     "Deck name can only consist of alphabet characters and digits"
-  elsif decks.map(&:downcase).include?(name.downcase)
+  elsif decks.values.map { |deck| deck.name.downcase }.any?(name.downcase)
     "Deck name already exists"
   end
 end
@@ -122,10 +136,8 @@ post "/:username/decks" do
     session[:message] = error
     erb :new_decks
   else
-    path = user_decks_path(username)
-    file_name = File.join(path, "#{deck_name}.yml")
-    File.new(file_name, "w")
-
+    deck = Deck.new(deck_name)
+    add_deck(username, deck)
     session[:message] = "Deck created"
     redirect "/#{username}/decks"
   end
