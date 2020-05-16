@@ -30,16 +30,22 @@ def load_all_decks(username)
   YAML.load_file(path) || {}
 end
 
-def add_deck(username, deck)
+def edit_decks(username, &block)
+  decks = yield load_all_decks(username)
   file_name = File.join(data_path, "#{username}.yml")
-  decks = load_all_decks(username)
-  id = next_element_id(decks)
-  decks[id] = deck
-
   File.open(file_name, "w") do |file|
     file.write(decks.to_yaml)
   end
 end
+
+def add_deck(username, deck)
+  edit_decks(username) do |decks|
+    id = next_element_id(decks)
+    decks[id] = deck
+    decks
+  end
+end
+
 
 def load_user_credentials
   credentials_path = if ENV["RACK_ENV"] == "test"
@@ -141,4 +147,14 @@ post "/:username/decks" do
     session[:message] = "Deck created"
     redirect "/#{username}/decks"
   end
+end
+
+# delete deck
+post "/:username/decks/:id/delete" do
+  username = params[:username]
+  edit_decks(username) do |decks|
+    decks.delete(params[:id])
+    decks
+  end
+  redirect "/:username/decks"
 end
