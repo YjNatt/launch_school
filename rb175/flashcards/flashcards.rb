@@ -38,15 +38,6 @@ def edit_decks(username, &block)
   end
 end
 
-def add_deck(username, deck)
-  edit_decks(username) do |decks|
-    id = next_element_id(decks)
-    decks[id] = deck
-    decks
-  end
-end
-
-
 def load_user_credentials
   credentials_path = if ENV["RACK_ENV"] == "test"
     File.expand_path("../test/users.yml", __FILE__)
@@ -143,7 +134,13 @@ post "/:username/decks" do
     erb :new_decks
   else
     deck = Deck.new(deck_name)
-    add_deck(username, deck)
+
+    edit_decks(username) do |decks|
+      id = next_element_id(decks)
+      decks[id] = deck
+      decks
+    end
+
     session[:message] = "Deck created"
     redirect "/#{username}/decks"
   end
@@ -153,8 +150,8 @@ end
 post "/:username/decks/:id/delete" do
   username = params[:username]
   edit_decks(username) do |decks|
-    decks.delete(params[:id])
+    decks.delete(params[:id].to_i)
     decks
   end
-  redirect "/:username/decks"
+  redirect "/#{username}/decks"
 end
