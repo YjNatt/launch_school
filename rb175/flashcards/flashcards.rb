@@ -22,7 +22,7 @@ end
 
 def next_element_id(elements)
   max = elements.keys.max || 0
-  max += 1
+  max + 1
 end
 
 def load_all_decks(username)
@@ -30,7 +30,7 @@ def load_all_decks(username)
   YAML.load_file(path) || {}
 end
 
-def edit_decks(username, &block)
+def edit_decks(username)
   decks = yield load_all_decks(username)
   file_name = File.join(data_path, "#{username}.yml")
   File.open(file_name, "w") do |file|
@@ -40,10 +40,10 @@ end
 
 def load_user_credentials
   credentials_path = if ENV["RACK_ENV"] == "test"
-    File.expand_path("../test/users.yml", __FILE__)
-  else
-    File.expand_path("../users.yml", __FILE__)
-  end
+                       File.expand_path("../test/users.yml", __FILE__)
+                     else
+                       File.expand_path("../users.yml", __FILE__)
+                     end
 
   YAML.load_file(credentials_path) || {}
 end
@@ -63,10 +63,10 @@ def user_signed_in?
 end
 
 def required_signed_in_user
-  unless user_signed_in?
-    session[:message] = "You must sign in first"
-    redirect "/"
-  end
+  return true if user_signed_in?
+
+  session[:message] = "You must sign in first"
+  redirect "/"
 end
 
 def error_for_deck_name(name)
@@ -100,7 +100,7 @@ post "/" do
   end
 end
 
-#Signout user
+# Signout user
 post "/signout" do
   session.delete(:username)
   session[:message] = "You have signed out"
@@ -148,10 +148,14 @@ end
 
 # delete deck
 post "/:username/decks/:id/delete" do
+  required_signed_in_user
   username = params[:username]
+
   edit_decks(username) do |decks|
     decks.delete(params[:id].to_i)
     decks
   end
+
+  session[:message] = "Deck deleted"
   redirect "/#{username}/decks"
 end
