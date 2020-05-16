@@ -1,5 +1,6 @@
 class Deck
-  attr_reader :name, :questions, :answered
+  attr_accessor :name
+  attr_reader :questions, :answered
 
   def initialize(name)
     @name = name
