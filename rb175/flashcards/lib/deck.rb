@@ -4,7 +4,7 @@ class Deck
 
   def initialize(name)
     @name = name
-    @questions = []
-    @answered = []
+    @answered_flashcards = []
+    @unanswered_flashcards = []
   end
 end
