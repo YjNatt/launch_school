@@ -159,3 +159,26 @@ post "/:username/decks/:id/delete" do
   session[:message] = "Deck deleted"
   redirect "/#{username}/decks"
 end
+
+# edit deck name
+post "/:username/decks/:id/edit" do
+  username = params[:username]
+  deck_name = params[:name].strip
+  id = params[:id].to_i
+
+  error = error_for_deck_name(deck_name)
+
+  if error
+    status 422
+    session[:message] = error
+    erb :edit_deck
+  else
+    edit_decks(username) do |decks|
+      deck = decks.fetch(id)
+      deck.name = deck_name
+      decks
+    end
+    redirect "/#{username}/decks"
+  end
+end
+
