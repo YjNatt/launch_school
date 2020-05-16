@@ -2,6 +2,9 @@
 <ul>
   <% @decks.each do |id, deck| %>
     <li><%= deck.name %></li>
+    <form action="/<%= session[:username] %>/decks/<%= id %>/delete" method="post">
+      <button type="submit">Delete</button>
+    </form>
   <% end %>
 </ul>
 <a href="/<%= session[:username] %>/decks/new">Create a new deck</a>
