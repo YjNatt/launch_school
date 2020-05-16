@@ -110,7 +110,6 @@ class AppTest < Minitest::Test
 
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Deck name already exists"
-
   end
 end
 
