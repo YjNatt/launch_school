@@ -132,5 +132,19 @@ class AppTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
   end
+
+  def test_view_individual_deck
+    create_admin_file
+    get "/admin/decks/1", {}, admin_session
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "Edit deck name"
+  end
+
+  def test_view_individual_deck_signed_out
+    create_admin_file
+    get "/admin/decks/1"
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
+  end
 end
 
