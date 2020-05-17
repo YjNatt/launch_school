@@ -7,4 +7,8 @@ class Deck
     @answered_flashcards = []
     @unanswered_flashcards = []
   end
+
+  def add_flashcard(id, flashcard)
+    @unanswered_flashcards << { id => flashcard }
+  end
 end
