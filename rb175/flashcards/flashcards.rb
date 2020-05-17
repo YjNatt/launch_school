@@ -202,3 +202,8 @@ get "/:username/decks/:id" do
   erb :deck
 end
 
+# display flashcard form
+get "/:username/decks/:id/flashcard/new" do
+  "hello world"
+end
+
