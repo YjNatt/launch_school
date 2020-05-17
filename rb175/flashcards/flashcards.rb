@@ -160,8 +160,19 @@ post "/:username/decks/:id/delete" do
   redirect "/#{username}/decks"
 end
 
+# render form to edit deck name
+get "/:username/decks/:id/edit" do
+  required_signed_in_user
+  username = params[:username]
+  id = params[:id].to_i
+  decks = load_all_decks(username)
+  @deck_name = decks.fetch(id).name
+  erb :edit_deck
+end
+
 # edit deck name
 post "/:username/decks/:id/edit" do
+  required_signed_in_user
   username = params[:username]
   deck_name = params[:name].strip
   id = params[:id].to_i
@@ -184,6 +195,7 @@ end
 
 # render deck page
 get "/:username/decks/:id" do
+  required_signed_in_user
   id = params[:id].to_i
   decks = load_all_decks(params[:username])
   @deck = decks.fetch(id)
