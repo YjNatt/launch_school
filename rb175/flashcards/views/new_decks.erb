@@ -1,6 +1,6 @@
 <form action="/<%= session[:username] %>/decks" method="post">
   <label for="name">Enter name for Deck:</label>
-  <input name="name" id="name">
+  <input name="name" id="name" value="<%= params[:name] %>">
 
   <button type="submit">Submit</button>
 </form>
