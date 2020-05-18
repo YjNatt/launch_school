@@ -32,6 +32,8 @@ class AppTest < Minitest::Test
   def create_admin_file
     file_name = File.join(data_path, "admin.yml")
     test_deck = Deck.new("test")
+    test_flashcard = Flashcard.new("This is the front", "This is the back")
+    test_deck.add(1, test_flashcard)
     File.open(file_name, "w") { |file| file.write({ 1 => test_deck }.to_yaml ) }
   end
 
@@ -173,6 +175,20 @@ class AppTest < Minitest::Test
     post "/admin/decks/1/flashcard", {front: "", back: "world"}, admin_session
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Front and back must be filled out"
+  end
+  
+  def test_display_all_flashcards_view
+    create_admin_file
+    get "/admin/decks/1/flashcards", {}, admin_session
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "This is the front"
+  end
+
+  def test_display_all_flashcards_view_signed_out
+    create_admin_file
+    get "/admin/decks/1/flashcards"
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
   end
 end
 
