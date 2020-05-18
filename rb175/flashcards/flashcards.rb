@@ -264,3 +264,11 @@ post "/:username/decks/:deck_id/flashcard/:id/delete" do
   session[:message] = "Flashcard deleted"
   redirect "/#{params[:username]}/decks/#{params[:deck_id]}/flashcards"
 end
+
+# Render form to edit flashcard
+get "/:username/decks/:deck_id/flashcard/:id" do
+  required_signed_in_user
+  deck = load_all_decks(session[:username]).fetch(params[:deck_id].to_i)
+  @flashcard = deck.flashcards.fetch(params[:id].to_i)
+  erb :edit_flashcard
+end
