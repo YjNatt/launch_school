@@ -22,9 +22,19 @@ class Deck
   end
 
   def delete(id)
-    card = @unanswered_flashcards.detect { |card| card.keys.include?(id) } ||
-           @answered_flashcards.detect { |card| card.keys.include?(id) }
+    card = get_flashcard_by_id(id)
 
     @unanswered_flashcards.delete(card) || @answered_flashcards.delete(card)
+  end
+
+  def [](id)
+    get_flashcard_by_id(id)
+  end
+
+  private
+
+  def get_flashcard_by_id(id)
+    @unanswered_flashcards.detect { |card| card.keys.include?(id) } ||
+    @answered_flashcards.detect { |card| card.keys.include?(id) }
   end
 end
