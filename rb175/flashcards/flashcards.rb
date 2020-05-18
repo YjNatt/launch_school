@@ -243,3 +243,11 @@ post "/:username/decks/:id/flashcard" do
     redirect ("/#{username}/decks/#{params[:id]}")
   end
 end
+
+get "/:username/decks/:id/flashcards" do
+  required_signed_in_user
+  username = session[:username]
+  deck = load_all_decks(username).fetch(params[:id].to_i)
+  @deck = deck.flashcards
+  erb :flashcards
+end
