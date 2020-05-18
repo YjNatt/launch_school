@@ -20,4 +20,11 @@ class Deck
       hsh[id] = flashcard
     end
   end
+
+  def delete(id)
+    card = @unanswered_flashcards.detect { |card| card.keys.include?(id) } ||
+           @answered_flashcards.detect { |card| card.keys.include?(id) }
+
+    @unanswered_flashcards.delete(card) || @answered_flashcards.delete(card)
+  end
 end
