@@ -1,8 +1,8 @@
 class Flashcard
-  attr_accessor :question, :answer
+  attr_accessor :front, :back
 
-  def initialize(question, answer)
-    @question = question
-    @answer = answer
+  def initialize(front, back)
+    @front = front
+    @back = back
   end
 end
