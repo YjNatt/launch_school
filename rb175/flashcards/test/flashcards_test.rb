@@ -146,5 +146,33 @@ class AppTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
   end
+
+  def test_create_flashcard_view
+    create_admin_file
+    get "/admin/decks/1/flashcard/new", {}, admin_session
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, %q(for="front">Front:)
+  end
+
+  def test_create_flashcard
+    create_admin_file
+    post "/admin/decks/1/flashcard", {front: "hello", back: "world"}, admin_session
+    assert_equal 302, last_response.status
+    assert_equal "Flashcard created", session[:message]
+  end
+
+  def test_create_flashcard_signed_out
+    create_admin_file
+    post "/admin/decks/1/flashcard", {front: "hello", back: "world"}
+    assert_equal 302, last_response.status
+    assert_equal "You must sign in first", session[:message]
+  end
+
+  def test_create_flashcard_invalid_fields
+    create_admin_file
+    post "/admin/decks/1/flashcard", {front: "", back: "world"}, admin_session
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Front and back must be filled out"
+  end
 end
 
