@@ -1,3 +1,4 @@
+<h3>Create Flashcard</h3>
 <form action="/<%= session[:username] %>/decks/<%= params[:id] %>/flashcard" method="post">
 
   <label for="front">Front:</label>
@@ -10,6 +11,6 @@
     <textarea name="back" id="back" rows="10" cols="60"></textarea>
   </div>
   
-  <button type="submit">Create flashcard</button>
+  <button type="submit">Submit</button>
   
 </form>
