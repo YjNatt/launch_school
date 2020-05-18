@@ -6,6 +6,7 @@ require "yaml"
 require "bcrypt"
 
 require_relative "lib/deck.rb"
+require_relative "lib/flashcard.rb"
 
 configure do
   enable :sessions
@@ -21,6 +22,7 @@ def data_path
 end
 
 def next_element_id(elements)
+p elements
   max = elements.keys.max || 0
   max + 1
 end
@@ -77,6 +79,12 @@ def error_for_deck_name(name)
     "Deck name can only consist of alphabet characters and digits"
   elsif decks.values.map { |deck| deck.name.downcase }.any?(name.downcase)
     "Deck name already exists"
+  end
+end
+
+def error_for_flashcard(front, back)
+  if front.empty? || back.empty?
+    "Front and back must be filled out"
   end
 end
 
@@ -204,6 +212,34 @@ end
 
 # display flashcard form
 get "/:username/decks/:id/flashcard/new" do
-  "hello world"
+  required_signed_in_user
+  erb :new_flashcard
 end
 
+# create flashcard
+post "/:username/decks/:id/flashcard" do
+  required_signed_in_user
+  username = params[:username]
+  id  = params[:id].to_i
+  front = params[:front].strip
+  back = params[:back].strip
+  
+  error = error_for_flashcard(front, back)
+
+  if error
+    status 422
+    session[:message] = error
+    erb :new_flashcard
+  else
+    edit_decks(params[:username]) do |decks|
+      deck = decks.fetch(id)
+      id = next_element_id(deck.flashcards)
+      flashcard = Flashcard.new(front, back)
+      deck.add(id, flashcard)
+      decks
+    end
+    
+    session[:message] = "Flashcard created"
+    redirect ("/#{username}/decks/#{params[:id]}")
+  end
+end
