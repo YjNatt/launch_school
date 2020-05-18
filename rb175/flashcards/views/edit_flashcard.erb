@@ -3,12 +3,12 @@
 
   <label for="front">Front:</label>
   <div>
-    <input name="front" id="front" value="<%= @flashcard.front %>">
+    <input name="front" id="front" value="<%= params[:front] || @flashcard.front %>">
   </div>
 
   <label for="back">Back:</label>
   <div>
-    <textarea name="back" id="back" rows="10" cols="60"><%= @flashcard.back %></textarea>
+    <textarea name="back" id="back" rows="10" cols="60"><%= params[:back] || @flashcard.back %></textarea>
   </div>
   
   <button type="submit">Submit</button>
