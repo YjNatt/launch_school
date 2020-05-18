@@ -1,0 +1,16 @@
+<h3>Edit Flashcard</h3>
+<form action="/<%= session[:username] %>/decks/<%= params[:deck_id] %>/flashcard/<%= params[:id] %>" method="post">
+
+  <label for="front">Front:</label>
+  <div>
+    <input name="front" id="front" value="<%= @flashcard.front %>">
+  </div>
+
+  <label for="back">Back:</label>
+  <div>
+    <textarea name="back" id="back" rows="10" cols="60"><%= @flashcard.back %></textarea>
+  </div>
+  
+  <button type="submit">Submit</button>
+  
+</form>
