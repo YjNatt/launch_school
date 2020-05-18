@@ -254,6 +254,7 @@ end
 
 # Delete flashcard
 post "/:username/decks/:deck_id/flashcard/:id/delete" do
+  required_signed_in_user
   edit_decks(params[:username]) do |decks|
     deck = decks.fetch(params[:deck_id].to_i)
     deck.delete(params[:id].to_i)
