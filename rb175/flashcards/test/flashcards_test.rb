@@ -190,5 +190,12 @@ class AppTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "You must sign in first", session[:message]
   end
+
+  def test_delete_flashcard
+    create_admin_file
+    post "/admin/decks/1/flashcard/1/delete", {}, admin_session
+    assert_equal 302, last_response.status
+    assert_equal "Flashcard deleted", session[:message]
+  end
 end
 
