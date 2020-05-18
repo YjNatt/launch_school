@@ -22,7 +22,6 @@ def data_path
 end
 
 def next_element_id(elements)
-p elements
   max = elements.keys.max || 0
   max + 1
 end
@@ -216,6 +215,15 @@ get "/:username/decks/:id/flashcard/new" do
   erb :new_flashcard
 end
 
+# Display flashcards
+get "/:username/decks/:id/flashcards" do
+  required_signed_in_user
+  username = session[:username]
+  deck = load_all_decks(username).fetch(params[:id].to_i)
+  @deck = deck.flashcards
+  erb :flashcards
+end
+
 # create flashcard
 post "/:username/decks/:id/flashcard" do
   required_signed_in_user
@@ -240,14 +248,18 @@ post "/:username/decks/:id/flashcard" do
     end
     
     session[:message] = "Flashcard created"
-    redirect ("/#{username}/decks/#{params[:id]}")
+    redirect "/#{username}/decks/#{params[:id]}"
   end
 end
 
-get "/:username/decks/:id/flashcards" do
-  required_signed_in_user
-  username = session[:username]
-  deck = load_all_decks(username).fetch(params[:id].to_i)
-  @deck = deck.flashcards
-  erb :flashcards
+# Delete flashcard
+post "/:username/decks/:deck_id/flashcard/:id/delete" do
+  edit_decks(params[:username]) do |decks|
+    deck = decks.fetch(params[:deck_id].to_i)
+    deck.delete(params[:id].to_i)
+    decks
+  end
+
+  session[:message] = "Flashcard deleted"
+  redirect "/#{params[:username]}/decks/#{params[:deck_id]}/flashcards"
 end
