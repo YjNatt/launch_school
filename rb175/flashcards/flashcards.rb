@@ -272,3 +272,31 @@ get "/:username/decks/:deck_id/flashcard/:id" do
   @flashcard = deck.flashcards.fetch(params[:id].to_i)
   erb :edit_flashcard
 end
+
+# Edit flashcard
+post "/:username/decks/:deck_id/flashcard/:id" do
+  required_signed_in_user
+  username = params[:username]
+  deck_id  = params[:deck_id].to_i
+  flashcard_id = params[:id].to_i
+  front = params[:front].strip
+  back = params[:back].strip
+  
+  error = error_for_flashcard(front, back)
+
+  if error
+    status 422
+    session[:message] = error
+    erb :edit_flashcard
+  else
+    edit_decks(username) do |decks|
+      card = decks[deck_id][flashcard_id]
+      card[flashcard_id].front = front
+      card[flashcard_id].back = back
+      decks
+    end
+
+    session[:message] = "Flashcard updated"
+    redirect "/#{username}/decks/#{params[:deck_id]}"
+  end
+end
