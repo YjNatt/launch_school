@@ -82,9 +82,7 @@ def error_for_deck_name(name)
 end
 
 def error_for_flashcard(front, back)
-  if front.empty? || back.empty?
-    "Front and back must be filled out"
-  end
+  return "Front and back must be filled out" if front.empty? || back.empty?
 end
 
 # Display index page
@@ -228,10 +226,10 @@ end
 post "/:username/decks/:id/flashcard" do
   required_signed_in_user
   username = params[:username]
-  id  = params[:id].to_i
+  id = params[:id].to_i
   front = params[:front].strip
   back = params[:back].strip
-  
+
   error = error_for_flashcard(front, back)
 
   if error
@@ -246,7 +244,7 @@ post "/:username/decks/:id/flashcard" do
       deck.add(id, flashcard)
       decks
     end
-    
+
     session[:message] = "Flashcard created"
     redirect "/#{username}/decks/#{params[:id]}"
   end
@@ -281,7 +279,6 @@ post "/:username/decks/:deck_id/flashcard/:id" do
   flashcard_id = params[:id].to_i
   front = params[:front].strip
   back = params[:back].strip
-  
   error = error_for_flashcard(front, back)
 
   if error
@@ -300,3 +297,4 @@ post "/:username/decks/:deck_id/flashcard/:id" do
     redirect "/#{username}/decks/#{params[:deck_id]}"
   end
 end
+
