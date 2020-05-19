@@ -197,5 +197,22 @@ class AppTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "Flashcard deleted", session[:message]
   end
+
+  def test_edit_flashcard
+    create_admin_file
+    post "/admin/decks/1/flashcard/1", { front: "hello", back: "world" }, admin_session
+    assert_equal 302, last_response.status
+    assert_equal "Flashcard updated", session[:message]
+
+    get "/admin/decks/1/flashcards", {}, admin_session
+    assert_includes last_response.body, "world"
+  end
+
+  def test_edit_flashcard_empty_input
+    create_admin_file
+    post "/admin/decks/1/flashcard/1", { front: "", back: "world" }, admin_session
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Front and back must be filled out"
+  end
 end
 
