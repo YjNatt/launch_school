@@ -17,6 +17,6 @@ class Robot
   end
 
   def generate_name
-    ('AA'..'ZZ').to_a.sample + (Random.new.rand(899) + 100).to_s
+    ('AA'..'ZZ').to_a.sample + "%03d" % Random.new.rand(999)
   end
 end
