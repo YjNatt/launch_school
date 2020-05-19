@@ -10,10 +10,12 @@ class Deck
 
   def add(id, flashcard)
     @unanswered_flashcards << { id => flashcard }
+    @unanswered_flashcards.shuffle!
   end
 
   def flashcards
     flashcards = @answered_flashcards + @unanswered_flashcards
+    flashcards.sort_by! { |card| card.keys.first }
 
     flashcards.each_with_object({}) do |card, hsh|
       id, flashcard = card.to_a.first
@@ -23,7 +25,6 @@ class Deck
 
   def delete(id)
     card = get_flashcard_by_id(id)
-
     @unanswered_flashcards.delete(card) || @answered_flashcards.delete(card)
   end
 
@@ -31,10 +32,16 @@ class Deck
     get_flashcard_by_id(id)
   end
 
+  def question
+    card = @unanswered_flashcards.pop
+    @answered_flashcards << card
+    card
+  end
+
   private
 
   def get_flashcard_by_id(id)
     @unanswered_flashcards.detect { |card| card.keys.include?(id) } ||
-    @answered_flashcards.detect { |card| card.keys.include?(id) }
+      @answered_flashcards.detect { |card| card.keys.include?(id) }
   end
 end
