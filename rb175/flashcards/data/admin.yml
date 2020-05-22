@@ -1,9 +1,15 @@
 ---
 1: !ruby/object:Deck
-  name: Example
-  questions: []
-  answered: []
+  name: Math
+  answered_flashcards: []
+  unanswered_flashcards:
+  - 1: !ruby/object:Flashcard
+      front: 1 + 1
+      back: '2'
+  - 2: !ruby/object:Flashcard
+      front: 1+1
+      back: '2'
 2: !ruby/object:Deck
-  name: example2
-  questions: []
-  answered: []
+  name: Science
+  answered_flashcards: []
+  unanswered_flashcards: []
