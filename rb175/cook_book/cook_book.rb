@@ -5,9 +5,10 @@ require "tilt/erubis"
 require "yaml"
 
 helpers do
-  def ingredients_default_text
-    "3 cups flour\n2 sticks unsalted butter\n1 tbsp baking powder\n..."
-  end
+end
+
+def parse_text_to_array(text)
+  text.split("\n").map(&:strip).reject(&:empty?)
 end
 
 def data_path
@@ -26,4 +27,9 @@ end
 # recipe form
 get "/recipe/new" do
   erb :new_recipe
+end
+
+# create recipe
+post "/recipe" do
+  title = params[:title].strip
 end
