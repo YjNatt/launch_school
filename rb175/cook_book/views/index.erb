@@ -5,6 +5,9 @@
   <% @recipes.each do |id, recipe| %>
     <li>
       <a href="/recipe/<%= id %>"><%= recipe.name %></a>
+      <form action="/recipe/<%= id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+      </form>
     </li>
   <% end %>
 </ul>

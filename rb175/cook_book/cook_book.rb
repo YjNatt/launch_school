@@ -19,6 +19,10 @@ def data_path
   end
 end
 
+def recipes_path
+  File.join(data_path, "recipes.yml")
+end
+
 def load_recipes
   file_path = File.join(data_path, "recipes.yml")
   YAML.load_file(file_path) || {}
@@ -66,12 +70,24 @@ post "/recipe" do
     id = next_element_id(recipes)
     recipes[id] = recipe
 
-    file_path = File.join(data_path, "recipes.yml")
-    File.open(file_path, "w") do |file|
+    File.open(recipes_path, "w") do |file|
       file.write(recipes.to_yaml)
     end
 
     session[:message] = "Recipe has been created"
     redirect("/")
   end
+end
+
+# delete recipe
+post "/recipe/:id/delete" do
+  recipes = load_recipes
+  recipes.delete(params[:id].to_i)
+
+  File.open(recipes_path, 'w') do |file|
+    file.write(recipes.to_yaml)
+  end
+
+  session[:message] = "Recipe has been deleted"
+  redirect("/")
 end
