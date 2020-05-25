@@ -30,15 +30,20 @@ def next_element_id(hash)
 end
 
 def error_for_recipe_title(title)
+  recipes = load_recipes.values.map { |recipe| recipe.name.downcase }
+
   if title.empty?
     "Title cannot be empty"
   elsif title.match?(/[^a-z1-9 ]/i)
     "Title can only contain letters, digits, and spaces"
+  elsif recipes.any?(title.downcase)
+    "Title is already take"
   end
 end
 
 # homepage
 get "/" do
+  @recipes = load_recipes
   erb :index
 end
 
@@ -63,7 +68,7 @@ post "/recipe" do
 
     file_path = File.join(data_path, "recipes.yml")
     File.open(file_path, "w") do |file|
-      file.write(recipes)
+      file.write(recipes.to_yaml)
     end
 
     session[:message] = "Recipe has been created"
