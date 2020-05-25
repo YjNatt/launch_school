@@ -13,6 +13,10 @@ class AppTest < Minitest::Test
     Sinatra::Application
   end
 
+  def session
+    last_request.env["rack.session"]
+  end
+
   def setup
     FileUtils.mkdir_p(data_path)
     file_path = File.join(data_path, 'recipies.yml')
@@ -32,6 +36,13 @@ class AppTest < Minitest::Test
   def test_recipe_form
     get "/recipe/new"
     assert_equal 200, last_response.status
-    assert_include last_response.body, "Create Recipe"
+    assert_includes last_response.body, "Create Recipe"
+  end
+
+  def test_create_recipe
+    post "/recipe", { "title" => "Kimchi stew" }
+    assert_equal 302, last_response.status
+    assert_equal "Recipe has been created", session[:message]
+    assert_includes last_response.body, "Kimchi stew"
   end
 end
