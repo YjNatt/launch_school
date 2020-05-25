@@ -2,18 +2,5 @@
 <form action="/recipe" method="post">
   <label for="title">Enter recipe title</label>
   <input name="title" id="title">
-
-  <div>
-    <label for="ingredients">Enter recipe ingredients:</label>
-    <textarea name="ingredients" id="ingredients" rows="10" cols="50"><%= params[:ingredients] || ingredients_default_text %></textarea>
-    <p>Only 1 ingredient per line</p>
-  </div>
-
-  <div>
-    <label for="steps">Enter steps:</label>
-    <textarea name="steps" id="steps" rows="10" cols="50"></textarea>
-    <p>Only 1 step per paragraph</p>
-  </div>
-
   <button type="submit">Submit</button>
 </form>
