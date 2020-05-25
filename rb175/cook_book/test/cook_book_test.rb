@@ -3,8 +3,10 @@ ENV["RACK_ENV"] = "test"
 require "minitest/autorun"
 require "rack/test"
 require "fileutils"
+require 'yaml'
 
 require_relative "../cook_book.rb"
+require_relative "../lib/recipe.rb"
 
 class AppTest < Minitest::Test
   include Rack::Test::Methods
@@ -19,8 +21,12 @@ class AppTest < Minitest::Test
 
   def setup
     FileUtils.mkdir_p(data_path)
-    file_path = File.join(data_path, 'recipies.yml')
-    File.new(file_path, 'w+')
+    file_path = File.join(data_path, 'recipes.yml')
+    recipe = { 1 => Recipe.new("test recipe") }
+
+    File.open(file_path, 'w') do |file|
+      file.write(recipe.to_yaml)
+    end
   end
 
   def teardown
@@ -43,6 +49,20 @@ class AppTest < Minitest::Test
     post "/recipe", { "title" => "Kimchi stew" }
     assert_equal 302, last_response.status
     assert_equal "Recipe has been created", session[:message]
+
+    get last_response["Location"]
     assert_includes last_response.body, "Kimchi stew"
+  end
+
+  def test_delete_recipe
+    get "/"
+    assert_includes last_response.body, "test recipe"
+
+    post "/recipe/1/delete"
+    assert_equal 302, last_response.status
+    assert_equal = "Recipe has been delete", session[:message]
+
+    get last_response["Location"]
+    refute_includes last_response.body, "test recipe"
   end
 end
