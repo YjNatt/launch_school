@@ -1,6 +1,6 @@
 <h3>Create Recipe</h3>
 <form action="/recipe" method="post">
   <label for="title">Enter recipe title</label>
-  <input name="title" id="title">
+  <input name="title" id="title" value="<%= params[:title] %>">
   <button type="submit">Submit</button>
 </form>
