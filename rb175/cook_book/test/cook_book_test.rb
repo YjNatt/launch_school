@@ -65,4 +65,24 @@ class AppTest < Minitest::Test
     get last_response["Location"]
     refute_includes last_response.body, "test recipe"
   end
+
+  def test_add_ingredient_view
+    get "/recipe/1/edit"
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "<h3>test recipe</h3>"
+  end
+
+  def test_add_ingredient
+    post "/recipe/1/edit/ingredient", {"ingredient" => "ingredient 1"}
+    assert_equal 302, last_response.status
+
+    get last_response["Location"]
+    assert_includes last_response.body, "ingredient 1"
+  end
+
+  def test_add_invalid_ingredient
+    post "/recipe/1/edit/ingredient", {"ingredient" => ""}
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Ingredient cannot be empty"
+  end
 end
