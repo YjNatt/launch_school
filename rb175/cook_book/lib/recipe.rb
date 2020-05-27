@@ -13,6 +13,10 @@ class Recipe
 
   alias :edit_ingredient :add_ingredient
 
+  def ingredients
+    @ingredients.sort.to_h
+  end
+
   def delete_ingredient(id)
     @ingredients.delete(id)
   end
