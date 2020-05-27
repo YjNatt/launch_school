@@ -6,6 +6,14 @@ require "yaml"
 
 require_relative "lib/recipe.rb"
 
+# Todo
+# create view for recipes
+# displays all the ingredients and steps
+
+# create view to edit recipes
+#   form for adding steps and ingredients
+#   form to edit the recipe
+
 configure do
   enable :sessions
   set :session_secret, 'secret'
@@ -28,6 +36,12 @@ def load_recipes
   YAML.load_file(file_path) || {}
 end
 
+def update_recipes(recipes)
+  File.open(recipes_path, "w") do |file|
+    file.write(recipes.to_yaml)
+  end
+end
+
 def next_element_id(hash)
   max = hash.keys.max || 0
   max + 1
@@ -39,9 +53,17 @@ def error_for_recipe_title(title)
   if title.empty?
     "Title cannot be empty"
   elsif title.match?(/[^a-z1-9 ]/i)
-    "Title can only contain letters, digits, and spaces"
+    "Title can only contain letters, digits and spaces"
   elsif recipes.any?(title.downcase)
-    "Title is already take"
+    "Title is already taken"
+  end
+end
+
+def error_for_ingredient(ingredient)
+  if ingredient.empty?
+    "Ingredient cannot be empty"
+  elsif ingredient.match(/[^a-z1-9 \/]/i)
+    "Ingredient can only contain letters, digits, spaces and forward slashes(/)"
   end
 end
 
@@ -62,6 +84,7 @@ post "/recipe" do
   error = error_for_recipe_title(title)
 
   if error
+    status 422
     session[:message] = error
     erb :new_recipe
   else
@@ -69,10 +92,7 @@ post "/recipe" do
     recipe = Recipe.new(title)
     id = next_element_id(recipes)
     recipes[id] = recipe
-
-    File.open(recipes_path, "w") do |file|
-      file.write(recipes.to_yaml)
-    end
+    update_recipes(recipes)
 
     session[:message] = "Recipe has been created"
     redirect("/")
@@ -83,11 +103,34 @@ end
 post "/recipe/:id/delete" do
   recipes = load_recipes
   recipes.delete(params[:id].to_i)
-
-  File.open(recipes_path, 'w') do |file|
-    file.write(recipes.to_yaml)
-  end
-
+  update_recipes(recipes)
   session[:message] = "Recipe has been deleted"
   redirect("/")
+end
+
+# display recipe
+get "/recipe/:id/edit" do
+  @recipe = load_recipes[params[:id].to_i]
+  erb :edit_recipe
+end
+
+# add ingredient
+post "/recipe/:id/edit/ingredient" do
+  ingredient = params[:ingredient].strip
+  recipes = load_recipes
+  recipe = recipes[params[:id].to_i]
+
+  error = error_for_ingredient(ingredient)
+
+  if error
+    status 422
+    @recipe = recipe
+    session[:message] = error
+    erb :edit_recipe
+  else
+    ingredient_id = next_element_id(recipe.ingredients)
+    recipe.add_ingredient(ingredient_id, ingredient)
+    update_recipes(recipes)
+    redirect("/recipe/#{ params[:id] }/edit")
+  end
 end
