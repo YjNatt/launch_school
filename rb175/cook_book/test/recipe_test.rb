@@ -33,4 +33,11 @@ class RecipeTest < Minitest::Test
     @recipe.add_step(1, "add salt")
     assert_equal "add salt", @recipe.steps[1]
   end
+
+  def test_ingredients_getter_method
+    @recipe.add_ingredient(2, "ingredient 2")
+    @recipe.add_ingredient(1, "ingredient 1")
+    ingredients = [[1, "ingredient 1"], [2, "ingredient 2"]]
+    assert_equal ingredients, @recipe.ingredients.to_a
+  end
 end
