@@ -8,5 +8,8 @@
 <ul>
   <% @recipe.ingredients.each do |id, ingredient| %>
     <li><%= ingredient %></li>
+    <form acrion="/recipe/<%= params[:id] %>/edit/ingredient/<%= id %>/delete" method="post">
+      <button type="submit">Delete</button>
+    </form>
   <% end %>
 </ul>
