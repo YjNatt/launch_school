@@ -6,13 +6,8 @@ require "yaml"
 
 require_relative "lib/recipe.rb"
 
-# Todo
-# create view for recipes
-# displays all the ingredients and steps
-
-# create view to edit recipes
-#   form for adding steps and ingredients
-#   form to edit the recipe
+# TODO
+# change routes from to show steps and ingredients on seperate page
 
 configure do
   enable :sessions
@@ -62,8 +57,8 @@ end
 def error_for_ingredient(ingredient)
   if ingredient.empty?
     "Ingredient cannot be empty"
-  elsif ingredient.match(/[^a-z1-9 \/]/i)
-    "Ingredient can only contain letters, digits, spaces and forward slashes(/)"
+  elsif ingredient.match(/[^a-z1-9 \/ (),]/i)
+    "Ingredient contains invalid characters"
   end
 end
 
@@ -108,14 +103,14 @@ post "/recipe/:id/delete" do
   redirect("/")
 end
 
-# display recipe
-get "/recipe/:id/edit" do
+# display form to edit recipe
+get "/recipe/:id/ingredient" do
   @recipe = load_recipes[params[:id].to_i]
   erb :edit_recipe
 end
 
 # add ingredient
-post "/recipe/:id/edit/ingredient" do
+post "/recipe/:id/ingredient" do
   ingredient = params[:ingredient].strip
   recipes = load_recipes
   recipe = recipes[params[:id].to_i]
@@ -131,6 +126,15 @@ post "/recipe/:id/edit/ingredient" do
     ingredient_id = next_element_id(recipe.ingredients)
     recipe.add_ingredient(ingredient_id, ingredient)
     update_recipes(recipes)
-    redirect("/recipe/#{ params[:id] }/edit")
+    redirect("/recipe/#{params[:id]}/ingredient")
   end
+end
+
+# delete ingredient
+post "/recipe/:recipe_id/ingredient/:id/delete" do
+  recipes = load_recipes
+  recipe = recipes[params[:recipe_id].to_i]
+  recipe.delete_ingredient(params[:id].to_i)
+  update_recipes(recipes)
+  redirect("/recipe/#{params[:recipe_id]}/ingredient")
 end

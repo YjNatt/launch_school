@@ -67,13 +67,13 @@ class AppTest < Minitest::Test
   end
 
   def test_add_ingredient_view
-    get "/recipe/1/edit"
+    get "/recipe/1/ingredient"
     assert_equal 200, last_response.status
     assert_includes last_response.body, "<h3>test recipe</h3>"
   end
 
   def test_add_ingredient
-    post "/recipe/1/edit/ingredient", {"ingredient" => "ingredient 1"}
+    post "/recipe/1/ingredient", {"ingredient" => "ingredient 1"}
     assert_equal 302, last_response.status
 
     get last_response["Location"]
@@ -81,8 +81,18 @@ class AppTest < Minitest::Test
   end
 
   def test_add_invalid_ingredient
-    post "/recipe/1/edit/ingredient", {"ingredient" => ""}
+    post "/recipe/1/ingredient", {"ingredient" => ""}
     assert_equal 422, last_response.status
     assert_includes last_response.body, "Ingredient cannot be empty"
+  end
+
+  def test_delete_ingredient
+    post "/recipe/1/ingredient", {"ingredient" => "ingredient 1"}
+    get last_response["Location"]
+    assert_includes last_response.body, "ingredient 1"
+
+    post "/recipe/1/ingredient/1/delete"
+    get last_response["Location"]
+    refute_includes last_response.body, "ingredient 1"
   end
 end

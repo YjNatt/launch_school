@@ -1,10 +1,12 @@
 <html>
   <head>
+    <link href="/stylesheets/app.css" rel="stylesheet">
   </head>
   <body>
-    <p><%= session&.delete(:message) %></p>
+    <section>
+      <p><%= session&.delete(:message) %></p>
 
-    <%= yield %>
-
+      <%= yield %>
+    </section>
   </body>
 </html>
