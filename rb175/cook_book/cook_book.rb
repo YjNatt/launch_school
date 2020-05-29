@@ -7,7 +7,7 @@ require "yaml"
 require_relative "lib/recipe.rb"
 
 # TODO
-# change routes from to show steps and ingredients on seperate page
+# add instructions page
 
 configure do
   enable :sessions
@@ -126,6 +126,7 @@ post "/recipe/:id/ingredient" do
     ingredient_id = next_element_id(recipe.ingredients)
     recipe.add_ingredient(ingredient_id, ingredient)
     update_recipes(recipes)
+    session[:message] = "Ingredient added"
     redirect("/recipe/#{params[:id]}/ingredient")
   end
 end
@@ -136,5 +137,32 @@ post "/recipe/:recipe_id/ingredient/:id/delete" do
   recipe = recipes[params[:recipe_id].to_i]
   recipe.delete_ingredient(params[:id].to_i)
   update_recipes(recipes)
+  session[:message] = "Ingredient deleted"
   redirect("/recipe/#{params[:recipe_id]}/ingredient")
+end
+
+# edit ingredient
+get "/recipe/:recipe_id/ingredient/:id/edit" do
+  @recipe = load_recipes[params[:recipe_id].to_i]
+  @ingredient = @recipe.ingredients[params[:id].to_i]
+  erb :edit_ingredient
+end
+
+# edit ingredient
+post "/recipe/:recipe_id/ingredient/:id" do
+  ingredient = params[:ingredient].strip
+  recipes = load_recipes
+  @recipe = recipes[params[:recipe_id].to_i]
+
+  error = error_for_ingredient(ingredient)
+  if error
+    status 422
+    session[:message] = error
+    erb :edit_ingredient
+  else
+    @recipe.edit_ingredient(params[:id].to_i, ingredient)
+    update_recipes(recipes)
+    session[:message] = "Ingredient updated"
+    redirect("/recipe/#{params[:recipe_id]}/ingredient")
+  end
 end
