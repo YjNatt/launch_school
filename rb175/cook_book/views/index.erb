@@ -3,11 +3,13 @@
 
 <ul>
   <% @recipes.each do |id, recipe| %>
-    <li>
-      <a href="/recipe/<%= id %>"><%= recipe.name %></a>
-      <a href="/recipe/<%= id %>/ingredient">Edit ingredients</a>
-      <a href="/recipe/<%= id %>/instruction">Edit instructions</a>
-      <form action="/recipe/<%= id %>/delete" method="POST">
+    <li class="list">
+      <p>
+        <a href="/recipe/<%= id %>"><%= recipe.name %></a>
+        <a href="/recipe/<%= id %>/ingredient">Edit ingredients</a>
+        <a href="/recipe/<%= id %>/instruction">Edit instructions</a>
+      </p>
+      <form class="delete" action="/recipe/<%= id %>/delete" method="POST">
         <button type="submit">Delete</button>
       </form>
     </li>
