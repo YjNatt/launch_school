@@ -1,0 +1,7 @@
+<h3><%= @recipe.name %></h3>
+
+<form action="/recipe/<%= params[:recipe_id] %>/ingredient/<%= params[:id] %>" method="post">
+  <label for="ingredient">Edit ingredient</label>
+  <input name="ingredient" id="ingredient" value="<%= @ingredient || params[:ingredient] %>">
+  <button type="submit">submit</button>
+</form>
