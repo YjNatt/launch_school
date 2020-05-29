@@ -92,7 +92,31 @@ class AppTest < Minitest::Test
     assert_includes last_response.body, "ingredient 1"
 
     post "/recipe/1/ingredient/1/delete"
+    assert_equal session[:message], "Ingredient deleted"
     get last_response["Location"]
     refute_includes last_response.body, "ingredient 1"
+  end
+
+  def test_edit_ingredient_form
+    get "/recipe/1/ingredient/1/edit"
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, ">Edit ingredient"
+  end
+
+  def test_edit_ingredient
+    post "/recipe/1/ingredient/1", {"ingredient" => "new ingredient"}
+    assert_equal 302, last_response.status
+    assert_equal session[:message], "Ingredient updated"
+
+    get last_response["Location"]
+    assert_includes last_response.body, "new ingredient"
+    refute_includes last_response.body, "ingredient 1"
+  end
+
+  def test_edit_ingredient_invalid
+    post "/recipe/1/ingredient/1", {"ingredient" => " "}
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Ingredient cannot be empty"
+    assert_includes last_response.body, %q(value=" ")
   end
 end
