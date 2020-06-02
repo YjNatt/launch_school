@@ -20,3 +20,7 @@ section {
   grid-column: 2;
   justify-self: right;
 }
+
+textarea {
+  display: block;
+}
