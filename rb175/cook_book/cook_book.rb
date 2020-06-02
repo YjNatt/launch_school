@@ -62,6 +62,14 @@ def error_for_ingredient(ingredient)
   end
 end
 
+def error_for_step(step)
+  if step.empty?
+    "Step cannot be empty"
+  elsif step.match(/[^a-z1-9 \/ (),.-]/i)
+    "Step contains invalid characters"
+  end
+end
+
 # homepage
 get "/" do
   @recipes = load_recipes
@@ -103,10 +111,10 @@ post "/recipe/:id/delete" do
   redirect("/")
 end
 
-# display form to edit recipe
+# display form to add ingredient
 get "/recipe/:id/ingredient" do
   @recipe = load_recipes[params[:id].to_i]
-  erb :edit_recipe
+  erb :add_ingredient
 end
 
 # add ingredient
@@ -121,7 +129,7 @@ post "/recipe/:id/ingredient" do
     status 422
     @recipe = recipe
     session[:message] = error
-    erb :edit_recipe
+    erb :add_ingredient
   else
     ingredient_id = next_element_id(recipe.ingredients)
     recipe.add_ingredient(ingredient_id, ingredient)
@@ -164,5 +172,33 @@ post "/recipe/:recipe_id/ingredient/:id" do
     update_recipes(recipes)
     session[:message] = "Ingredient updated"
     redirect("/recipe/#{params[:recipe_id]}/ingredient")
+  end
+end
+
+# display form to add step
+get "/recipe/:id/step" do
+  @recipe = load_recipes[params[:id].to_i]
+  erb :add_step
+end
+
+# add step
+post "/recipe/:id/step" do
+  step = params[:step].strip
+  recipes = load_recipes
+  recipe = recipes[params[:id].to_i]
+
+  error = error_for_step(step)
+
+  if error
+    status 422
+    @recipe = recipe
+    session[:message] = error
+    erb :add_step
+  else
+    step_id = next_element_id(recipe.steps)
+    recipe.add_step(step_id, step)
+    update_recipes(recipes)
+    session[:message] = "Step added"
+    redirect("/recipe/#{params[:id]}/step")
   end
 end
