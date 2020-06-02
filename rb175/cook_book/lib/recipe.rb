@@ -27,6 +27,10 @@ class Recipe
 
   alias :edit_step :add_step
 
+  def steps
+    @steps.sort.to_h
+  end
+
   def delete_step(id)
     @steps.delete(id)
   end
