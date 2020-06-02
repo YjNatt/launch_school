@@ -1,0 +1,20 @@
+<h3><%= @recipe.name %></h3>
+
+<a href="/">All Recipes</a>
+
+<form action="/recipe/<%= params[:id] %>/ingredient" method="post">
+  <label for="ingredient">Add Ingredient</label>
+  <input name="ingredient" id="ingredient">
+  <button type="submit">submit</button>
+</form>
+
+<ul>
+  <% @recipe.ingredients.each do |id, ingredient| %>
+    <div class="list">
+      <li class="item"><%= ingredient %> <a href="/recipe/<%= params[:id] %>/ingredient/<%= id %>/edit">Edit</a></li>
+      <form class="delete" action="/recipe/<%= params[:id] %>/ingredient/<%= id %>/delete" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  <% end %>
+</ul>
