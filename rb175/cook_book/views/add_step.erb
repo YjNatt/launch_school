@@ -1,0 +1,20 @@
+<h3><%= @recipe.name %></h3>
+
+<a href="/">All Recipes</a>
+
+<form action="/recipe/<%= params[:id] %>/step" method="post">
+  <label for="step">Add Step:</label>
+  <textarea cols='50' rows='10' name="step" id="step"><%= params[:step] %></textarea>
+  <button type="submit">submit</button>
+</form>
+
+<ul>
+  <% @recipe.steps.each do |id, step| %>
+    <div class="list">
+      <li class="item"><%= step %> <a href="/recipe/<%= params[:id] %>/step/<%= id %>/edit">Edit</a></li>
+      <form class="delete" action="/recipe/<%= params[:id] %>/step/<%= id %>/delete" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  <% end %>
+</ul>
