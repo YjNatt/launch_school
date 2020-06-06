@@ -1,15 +1,4 @@
 class SimpleLinkedList
-  def self.from_a(object)
-    return new unless object
-
-    simple_linked_list = new
-    object.reverse.each do |number|
-      simple_linked_list.push(number)
-    end
-
-    simple_linked_list
-  end
-
   def initialize
     @number_of_elements = 0
   end
@@ -24,32 +13,28 @@ class SimpleLinkedList
 
   def push(number)
     @number_of_elements += 1
-
-    @element = if @elements
-                 Element.new(number, @elements)
-               else
-                 Element.new(number)
-               end
+    element = Element.new(number, @element)
+    @element = element
   end
 
   def pop
-    number = @elements.datum
-    @elements = @elements.next
+    number = @element.datum
+    @element = @element.next
     @number_of_elements -= 1
     number
   end
 
   def peek
-    @elements&.datum
+    @element&.datum
   end
 
   def head
-    @elements
+    @element
   end
 
   def to_a
     array = []
-    current_element = @elements
+    current_element = @element
     while current_element
       array << current_element.datum
       current_element = current_element.next
@@ -64,6 +49,18 @@ class SimpleLinkedList
     end
     reverse_linked_list
   end
+
+  def self.from_a(object)
+    return new unless object
+
+    simple_linked_list = new
+    object.reverse.each do |number|
+      simple_linked_list.push(number)
+    end
+
+    simple_linked_list
+  end
+
 end
 
 class Element
