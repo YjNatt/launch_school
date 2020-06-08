@@ -1,7 +1,0 @@
-<form action="/<%= session[:username] %>/decks" method="post">
-  <label for="name">Enter name for Deck:</label>
-  <input name="name" id="name" value="<%= params[:name] %>">
-
-  <button type="submit">Submit</button>
-</form>
-<a href="/<%= session[:username] %>/decks">Go back</a>
