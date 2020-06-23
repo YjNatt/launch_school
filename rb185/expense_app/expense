@@ -27,9 +27,9 @@ def list_expenses
 end
 
 def add(amount, memo)
-  sql = "INSERT INTO expenses (amount, memo, created_on)
-         VALUES (#{amount}, '#{memo}', NOW())"
-  CONNECTION.exec(sql)
+  date = Date.today
+  sql = "INSERT INTO expenses (amount, memo, created_on) VALUES ($1, $2, $3)"
+  CONNECTION.exec_params(sql, [amount, memo, date])
 end
 
 command = ARGV.first
@@ -42,6 +42,6 @@ when 'list'
 when 'add'
   amount = ARGV[1]
   memo = ARGV[2]
-  return puts 'You must provide an amount and memo' unless amount || memo
+  abort 'You must provide an amount and memo' unless amount || memo
   add(amount, memo)
 end
