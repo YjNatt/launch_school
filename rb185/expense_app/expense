@@ -2,12 +2,36 @@
 require 'pg'
 
 db = PG.connect(dbname: "expense_app")
-result = db.exec("SELECT * FROM expenses;")
 
-result.each do |tuple|
-  columns = [ tuple["id"].rjust(3),
-              tuple["created_on"].rjust(10),
-              tuple["amount"].rjust(12),
-              tuple["memo"] ]
-  puts columns.join(" | ")
+def display_help
+  puts <<~HELP
+    Commands:
+
+    add AMOUNT MEMO [DATE] - record a new expense
+    clear - delete all expenses
+    list - list all expenses
+    delete NUMBER -remove expense with id NUMBER
+    search QUERY - list expenses with a matching memo field
+  HELP
+end
+
+def list_expenses(db)
+  result = db.exec("SELECT * FROM expenses ORDER BY created_on ASC;")
+
+  result.each do |tuple|
+    columns = [ tuple["id"].rjust(3),
+                tuple["created_on"].rjust(10),
+                tuple["amount"].rjust(12),
+                tuple["memo"] ]
+    puts columns.join(" | ")
+  end
+end
+
+command = ARGV.first
+
+case command
+when nil
+  display_help
+when 'list'
+  list_expenses(db)
 end
