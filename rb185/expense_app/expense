@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 require 'pg'
-
+require 'io/console'
 
 
 class ExpenseData
@@ -40,6 +40,11 @@ class ExpenseData
     end
   end
 
+  def delete_all_expenses
+    @connection.exec("DELETE FROM expenses")
+    puts "All expenses have been deleted."
+  end
+
   private
 
   def display_expenses(expenses)
@@ -73,6 +78,11 @@ class CLI
       @expenses.search_expenses(arguments[0])
     when 'delete'
       @expenses.delete_expense(arguments[0])
+    when 'clear'
+      puts "This will remove all expenses. Are you sure? (y/n)"
+      response = STDIN.getch
+
+      @expenses.delete_all_expenses if response == "y"
     else
       display_help
     end
