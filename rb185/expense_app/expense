@@ -80,7 +80,7 @@ class CLI
       @expenses.delete_expense(arguments[0])
     when 'clear'
       puts "This will remove all expenses. Are you sure? (y/n)"
-      response = STDIN.getch
+      response = $stdin.getch
 
       @expenses.delete_all_expenses if response == "y"
     else
