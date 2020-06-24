@@ -5,7 +5,8 @@ require 'io/console'
 
 class ExpenseData
   def initialize
-    @connection = PG.connect(dbname: "expense_app")
+    @connection = PG.connect(dbname: "expenses")
+    setup_schema
   end
 
   def list_expenses
@@ -68,6 +69,21 @@ class ExpenseData
       puts "There are no expenses."
     else
       puts "There are #{total_rows} expense#{"s" if total_rows > 1}."
+    end
+  end
+
+  def setup_schema
+    sql = <<~SQL
+      SELECT COUNT(*)
+      FROM information_schema.tables
+      WHERE table_schema = 'public'
+      AND table_name = 'expenses'
+    SQL
+
+    result = @connection.exec(sql).field_values("count").first
+
+    if result == "0"
+      @connection.exec(IO.read("schema.sql"))
     end
   end
 end
