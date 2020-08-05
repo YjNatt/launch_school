@@ -1,0 +1,131 @@
+body {
+  font: 28px "Helvetica Black", Helvetica, arial;
+}
+
+article {
+  border: 2px black solid;
+  padding: 10px 15px;
+  width: 646px;
+}
+
+dl, dt, dd, p {
+  margin: 0;
+}
+
+dd, dt {
+  display: inline-block;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+header thead {
+  border-top: 30px black solid;
+}
+
+header p:last-of-type {
+  padding-bottom: 5px;
+}
+
+header [scope="col"] {
+  padding: 10px 0;
+}
+
+header [scope="row"], header td {
+  padding: 5px 0;
+}
+
+header td, main td{
+  text-align: right;
+}
+
+header th, header td,
+main th, main td {
+  border-top: 1px black solid;
+}
+
+main thead {
+  border-top: 15px black solid;
+}
+
+main tfoot {
+  border-top: 20px black solid;
+}
+
+main thead tr:first-of-type {
+  padding-top: 5px;
+  text-align: right;
+}
+
+main thead th:first-child {
+  padding: 11px 1px 1px 0;
+}
+
+main th {
+  padding: 2px 0;
+}
+
+main td {
+  padding: 0;
+}
+
+main sup {
+  vertical-align: 10%;
+}
+
+main tbody td {
+  font-weight: bold;
+}
+
+main p {
+  font-size: 1.6rem;
+  letter-spacing: -0.2px;
+  padding: 14px 0 13px 20px;
+  text-indent: -20px;
+}
+
+main tfoot tr:last-child td {
+  font-size: 1.6rem;
+  letter-spacing: -0.2px;
+  padding: 14px 0 14px 20px;
+  text-indent: -19.6px;
+  text-align: left;
+}
+
+tr {
+  text-align: left;
+}
+
+footer table {
+  font-size: 1.4rem;
+}
+
+footer thead {
+  border-bottom: 1px black solid
+}
+
+footer td, footer th {
+  padding: 2px 0;
+}
+
+footer th, tfoot th, dd {
+  font-weight: normal;
+}
+
+
+.indent {
+  display: block;
+  font-weight: normal;
+  margin-left: 28px;
+}
+
+footer .indent {
+  margin-left: 33.5px;
+}
