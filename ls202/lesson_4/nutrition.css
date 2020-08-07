@@ -1,8 +1,0 @@
-dt {
-  display: inline-block;
-}
-
-dd:nth-child(2) {
-  display: inline-block;
-  margin-left: 0;
-}
