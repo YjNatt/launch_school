@@ -9,6 +9,44 @@ fieldset {
   width: 600px;
 }
 
+dl {
+  margin-bottom: 0;
+}
+
+dl + dl {
+  margin-top: 0;
+}
+
+.partial {
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.half {
+  width: 50%;
+}
+
+.left {
+  padding-right: 5px;
+}
+
+.right {
+  padding-left: 5px;
+}
+
+.middle {
+  padding: 0 5px;
+  text-align: center;
+}
+
+.one_tenth {
+  width: 10%
+}
+
+.four_tenths {
+  width: 40%;
+}
+
 dt {
   margin-bottom: 5px
 }
