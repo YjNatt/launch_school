@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact Form</title>
+    <meta charset="utf-8" />
+    <link href="contact_form.css" rel="stylesheet" />
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <dl>
+          <dt>
+            <label for="first_name">First Name</label>
+          </dt>
+          <dd>
+            <input type="text" id="first_name" name="first_name" />
+          </dd>
+          <dt>
+            <label for="last_name">Last Name</label>
+          </dt>
+          <dd>
+            <input type="text" id="last_name" name="last_name" />
+          </dd>
+          <dt>
+            <label for="email">Email</label>
+          </dt>
+          <dd>
+            <input type="email" id="email" name="email"
+                   placeholder="example@example.com" />
+          </dd>
+          <dt>
+            <label for="city">City</label>
+          </dt>
+          <dd>
+            <input type="text" id="city" name="city" />
+          </dd>
+          <dt>
+            <label for="state">State</label>
+          </dt>
+          <dd>
+            <select id="state" name="state">
+              <option>AL</option>
+              <option>AK</option>
+            </select>
+          </dd>
+          <dt>
+            <label for="zipcode">Zipcode</label>
+          </dt>
+          <dd>
+            <input type="text" id="zipcode" name="zipcode" pattern="[0-9]{5}"
+                   placeholder="12345" />
+          </dd>
+        </dl>
+
+        <p>Which of these colors do you like best</p>
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="color" value="red" checked />
+              Red
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="blue" />
+              Blue
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="yellow" />
+              Yellow
+            </label>
+          </li>
+        </ul>
+
+        <p>Which web technologies do you want to learn?</p>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" name="html" value="HTML" />
+              HTML
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="css" value="CSS" />
+              CSS
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="javascript" value="Javascript" />
+              Javascript
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="ruby" value="Ruby" />
+              Ruby
+            </label>
+          </li>
+        </ul>
+
+        <dl>
+          <dt><label for="comments">Comments</label></dt>
+          <dd><textarea id="comments" name="comments" rows="6" cols="80"></textarea></dd> 
+        </dl>
+        <input type="hidden" name="timestamp" value="2020-08-09">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </fieldset>
+    </form>
+  </body>
+</html>
