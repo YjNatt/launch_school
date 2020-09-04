@@ -1,0 +1,69 @@
+body {
+  background: #2f2840 url("bg_body.gif");
+  font: 20px 'Avenir Medium', 'Helvetica', sans-serif;
+  padding: 0 8px;
+}
+
+header {
+  margin: 0 auto;
+  padding: 159px 0 87px 1px;
+  width: 1000px;
+}
+
+figure {
+  text-align: center;
+}
+
+main {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  width: 1000px;
+}
+
+article {
+  margin: 0 auto;
+  padding: 100px 0 64px 0;
+  text-align: center;
+  width: 825px;
+}
+
+h2 {
+  font: 2.2rem 'Avenir Heavy', 'Helvetica', sans-serif;
+  margin-bottom: 22px;
+}
+
+h2::before {
+  content: "\2022"; 
+  padding-right: 25px;
+  font-size: 2rem;
+}
+
+h2::after {
+  content: "\2022"; 
+  padding-left: 25px;
+  font-size: 2rem;
+}
+
+h3 {
+  font: 1.6rem 'Avenir Black', 'Helvetica', sans-serif;
+  color: #3E98B2;
+  margin-bottom: 22px;
+}
+
+footer {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 116px;
+  background-color: #E7E7E7;
+  margin: 0 auto 143px auto;
+  width: 1000px;
+}
+
+a {
+  margin: 0 61px;
+}
+
+footer img {
+  display: block;
+}

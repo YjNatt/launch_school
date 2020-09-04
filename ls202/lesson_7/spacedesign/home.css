@@ -1,0 +1,149 @@
+body{
+  background: #2f2840 url("images/bg_body.gif") 50% 0 repeat;
+  color: #45494d;
+  font: normal 20px "Avenir", Helvetica, Arial, sans-serif;
+  padding: 135px 0 0 0;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 40px;
+}
+
+h1[role="banner"]{
+  margin: 0 0 115px 0;
+}
+
+nav {
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 455px;
+}
+
+nav a {
+  color: #cacaca;
+  text-decoration: none;
+}
+
+nav .active {
+  color: #6db9ff;
+  font-weight: 800;
+}
+
+main {
+  background-color: #ffffff;
+  padding: 100px 0 30px 0;
+  width: 100%;
+}
+
+article {
+  padding: 0 0 100px 0;
+}
+
+h2 {
+  color: #2f2840;
+  font-size: 36px;
+  font-weight: 600;
+  padding-bottom: 40px;
+}
+
+h2::before,
+h2::after {
+  content: "\2022";
+  display: inline-block;
+  font-size: 22px;
+  margin: 0 24px;
+  vertical-align: 5px;
+}
+
+h3 {
+  color: #3e59b2;
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+
+.column {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+article p {
+  padding: 0 110px;
+}
+
+footer {
+  background-color: #e7e7e7;
+  color: #b1b1b1;
+  padding: 80px 0;
+}
+
+footer p {
+  margin: auto;
+}
+
+footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 40px auto 0 auto;
+  max-width: 560px;
+  width: auto;
+}
+
+footer li a {
+  background-image: url("images/icons_social-media.png");
+  display: block;
+  height: 46px;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 46px;
+}
+
+.twitter {
+  background-position: 0 0;
+}
+
+.facebook {
+  background-position: 0 -46px;
+}
+
+.email {
+  background-position: 0 -92px;
+}
+
+.instagram {
+  background-position: 0 -138px;
+}
+
+#projects figure {
+  padding: 0 0 55px 0;
+}
+
+#projects figure img,
+#team figure img {
+  display: block;
+}
+
+#team  ul {
+  padding: 120px 0 100px 0;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  width: 740px;
+}
+
+#team img {
+  margin: 0 0 20px 0;
+}
+
+#team a {
+  color: #3e59b2;
+  font-size: 24px;
+  text-decoration: none;
+}
