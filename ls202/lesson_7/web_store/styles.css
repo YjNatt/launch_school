@@ -1,0 +1,116 @@
+body {
+  background-color: #FAD505;
+  font: normal 16px Helvetica, Arial, sans-serif;
+}
+
+header, main {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 900px;
+}
+
+header {
+  background-color: #307EC0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 30px 25px;
+}
+
+h1 a {
+  color: #FFFFFF;
+  font-size: 2.4rem;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+main {
+  background-color: #ECECEC;
+  margin-top: 30px;
+  padding: 25px;
+}
+
+figure {
+  width: 100%;
+  height: 160px;
+}
+
+.products ul {
+  display: grid;
+  grid-gap: 16.6px;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "aurelia polycaryum chlorelligerum sonneborni"
+    "ugandae woodruffi . .";
+  margin: 25px 0 15px 0;
+}
+
+.products li {
+  background-color: #FFFFFF;
+  padding: 15px;
+}
+
+.products input[type=checkbox] {
+  display: none;
+}
+
+.products img {
+  display: block;
+  height: 140px;
+  margin: 0 auto 18px auto;
+}
+
+.aurelia {
+  grid-area: aurelia;
+}
+
+.polycaryum {
+  grid-area: polycaryum;
+}
+
+.chlorelligerum {
+  grid-area: chlorelligerum;
+}
+
+.sonneborni {
+  grid-area: sonneborni;
+}
+
+.ugandae {
+  grid-area: ugandae;
+}
+
+.woodruffi {
+  grid-area: woodruffi;
+}
+
+input[type=checkbox]:checked + figure img {
+  width: 400px;
+  height: auto;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin: 0 0 0 -200px;
+}
+
+input[type=checkbox]:checked + figure::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+label {
+  cursor: pointer;
+  display: block;
+}
