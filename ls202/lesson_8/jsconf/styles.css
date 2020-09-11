@@ -1,0 +1,331 @@
+body {
+  background-color: #FFFFFF;
+  color: #5F5F5F;
+  font: 300 16px "Open Sans", Arial, sans-serif;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 17px 0;
+  padding: 0 10px;
+}
+
+a {
+  color: #358000;
+  text-decoration: none;
+}
+
+small {
+  background-color: #EEEEEE;
+  border: 1px solid #AAAAAA;
+  display: inline-block;
+  font-size: 7px;
+  padding: 1px;
+  vertical-align: middle;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.button {
+  background-color: #358000;
+  color: #fff;
+  display: inline-block;
+  font-weight: 700;
+  padding: 10px 30px;
+  text-decoration: none;
+}
+
+.button:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+header {
+  background-image: url("images/front.jpg");
+  background-position: center;
+  height: 300px;
+}
+
+header img {
+  display: block;
+  margin: 0 auto;
+  padding: 90px 0 15px 0;
+}
+
+header h1, header h2 {
+  color: #FFFFFF;
+  font-weight: 400;
+}
+
+header h1 {
+  font-size: 40px;
+}
+
+header h2 {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+main article{
+  padding: 60px 32px;
+  border-bottom: 1px solid #EFEFEF;
+  box-sizing: border-box;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+main h1 {
+  color: #444;
+  font-weight: 300;
+  font-size: 3rem;
+  margin: 0 0 30px 0;
+}
+
+.speakers {
+  display: grid;
+  grid-template-columns: 280px;
+  grid-template-rows: repeat(12, 380px);
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.speakers li {
+  border: 1px solid #EFEFEF;
+  position: relative;
+}
+
+.speakers section {
+  box-sizing: border-box;
+  color: white;
+  font-size: 12px;
+  padding: 10px 5px;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.speakers section:hover {
+  transition: 0.3s ease-in;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.speakers img {
+  display: block;
+  width: 100%;
+}
+
+.speakers h2 {
+  font-size: 1.5rem;
+  color: #358000;
+}
+
+.speakers > li > h2 {
+  margin: 40px 0 4px 0;
+}
+
+.schedule li {
+  box-sizing: border-box;
+  border-bottom: 1px solid #EFEFEF;
+  margin: 0 auto;
+  min-height: 145px;
+  padding: 11px;
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "photo time"
+    "topic topic"
+    "speaker speaker";
+  justify-items: left;
+  grid-gap: 10px;
+  text-align: left;
+}
+
+.schedule li:first-of-type {
+  border-top: 1px solid #EFEFEF;
+}
+
+.schedule h2, .schedule p {
+  color: #444444;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.schedule a {
+  grid-area: photo;
+}
+
+.schedule img {
+  display: block;
+  width: 80px;
+}
+
+.schedule h2 {
+  grid-area: topic;
+}
+
+.schedule h3 {
+  grid-area: speaker;
+}
+
+.schedule p {
+  grid-area: time;
+  align-self: center;
+}
+
+.location p ,
+.call-for-papers p,
+footer p {
+  text-align: start;
+  padding: 0;
+}
+
+.sponsors h2 {
+  text-align: start;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 30px 0 5px 0;
+}
+
+.sponsors img {
+  display: block
+}
+
+.sponsors ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.silver img {
+  width: 240px;
+}
+
+.support img {
+  width: 180px;
+}
+
+footer {
+  background: url("images/people.jpg");
+  background-size: cover;
+  color: #FFFFFF;
+  height: 340px;
+}
+
+footer h1 {
+  box-sizing: border-box;
+  font-size: 2.2rem;
+  font-weight: 300;
+  padding: 20px 0
+}
+
+footer h2 {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+footer article {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 16px 10px;
+  text-align: start;
+}
+
+nav {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .speakers {
+    grid-template-columns: repeat(2, 280px);
+    grid-template-rows: repeat(6, 380px);
+  }
+}
+
+@media (min-width: 650px) {
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #FFFFFF;
+    border-top: 10px solid #F5F5F5;
+    border-bottom: 1px solid #F5F5F5;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+  }
+  
+  nav li {
+    display: inline-block;
+    padding: 10px 25px;
+  }
+  nav a {
+    color: #444;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+
+  header {
+    margin: 95px 0 0 0;
+    height: 390px;
+  }
+
+  header h1 {
+    font-size: 4.5rem;
+  }
+
+  header h2 {
+    font-size: 2rem;
+  }
+
+  .schedule li {
+    height: auto;
+    grid-template-columns: 80px 1fr 130px;
+    grid-template-areas:
+      "time topic photo"
+      "time speaker photo";
+    gap: 0 10px;  
+    align-content: center;
+  }
+
+  .schedule img {
+    display: block;
+    width: 130px;
+  }
+
+  .schedule h2 {
+    align-self: end;
+  }
+
+  footer h1 {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 912px) {
+  header {
+    margin: 53px 0 0 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .speakers {
+    grid-template-columns: repeat(3, 280px);
+    grid-template-rows: repeat(4, 380px);
+  }
+}
