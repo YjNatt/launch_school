@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todo list</title>
+    <meta charset="utf-8" />
+    <link href="whitespace-reset.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <section class="todos-list">
+          <header>
+            <h1><img src="assessment_209/all-todos.png" alt="" />All Todos</h1>
+            <p>18</p>
+          </header>
+          <main>
+            <ul>
+              <li class="active">
+                <h2><a href="#">02/16</a></h2>
+                <p>8</p>
+              </li>
+              <li>
+                <h2><a href="#">03/16</a></h2>
+                <p>2</p>
+              </li>
+              <li>
+                <h2><a href="#">04/16</a></h2>
+                <p>1</p>
+              </li>
+              <li>
+                <h2><a href="#">05/16</a></h2>
+                <p>1</p>
+              </li>
+              <li>
+                <h2><a href="#">06/16</a></h2>
+                <p>6</p>
+              </li>
+            </ul>
+          </main>
+        </section>
+
+        <section class="completed-list"> 
+          <header>
+            <h1><img src="assessment_209/done.png" alt="" />Completed</h1>
+          </header>
+          <ul>
+            <li>
+              <h2><a href="#">02/15</a></h2>
+            </li>
+            <li>
+              <h2><a href="#">03/15</a></h2>
+            </li>
+            <li>
+              <h2><a href="#">04/15</a></h2>
+            </li>
+            <li>
+              <h2><a href="#">05/15</a></h2>
+            </li>
+            <li>
+              <h2><a href="#">06/14</a></h2>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <label class="hamburger">
+          <img src="assessment_209/hamburger.png" alt="nav toggle" />
+          <input type="checkbox" />
+        </label>
+        <h1 class="current-todo">02/16</h1>
+        <p>8</p>
+        <label class="add-todo">
+          <img src="assessment_209/plus.png" alt="" />
+          Add new todo
+          <input type="checkbox" />
+        </label>
+        <ul>
+          <li>
+            <label>
+              Item 1
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 2
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 3
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 4
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 5
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 6
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 7
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 8
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+          <li>
+            <label>
+              Item 9
+              <input type="checkbox" />
+            </label>
+            <form>
+              <button>
+                <img src="assessment_209/trash.png" alt="delete"/>
+              </button>
+            </form>
+          </li>
+        </ul>
+      </article>
+      <aside>
+        <form>
+          <label>
+            Title
+            <input type="text" name="title" placeholder="Title"/>
+          </label>
+          <fieldset>
+            <legend>Due Date</legend>
+            <select name="day" id="day">
+              <option value="" disabled selected hidden>Day</option>
+            </select>
+            /
+            <select name="month" id="month">
+              <option value="" disabled selected hidden>Month</option>
+            </select>
+            /
+            <select name="year" id="year">
+              <option value="" disabled selected hidden>Year</option>
+            </select>
+          </fieldset>
+          <label>
+            Description
+            <textarea name="todo-description" placeholder="Description"></textarea>
+          </label>
+        </form>
+      </aside>
+    </main>
+  </body>
+</html>
