@@ -1,0 +1,265 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  font: normal 16px Helvetica, Arial, sans-serif;
+  min-width: 595px;
+}
+
+*:focus {
+  outline: none;
+}
+
+body > header {
+  flex-shrink: 0;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+h1 {
+  color: #050505;
+  font-size: 21px;
+  font-weight: normal;
+}
+
+
+label[for="nav-toggle"] img {
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  width: 25px;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+#nav-toggle:checked ~ nav {
+  display: block;
+}
+
+nav {
+  background-color: #464f77;
+  display: none;
+  float: left;
+  height: 100%;
+  width: 335px;
+}
+
+section {
+  margin-top: 60px;
+}
+
+section a {
+  color: #a3a7bb;
+  text-decoration: none;
+}
+
+nav section:last-child a {
+  text-decoration: line-through;
+}
+
+nav p,
+.todos h1 + p {
+  background-color: #6b7292;
+  border-radius: 10px;
+  color: #c4c7d3;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+nav li:first-of-type {
+  margin-left: -35px;
+}
+
+nav img:first-of-type {
+  display: inline-block;
+  padding-right: 10px;
+  vertical-align: -5px;
+}
+
+nav li {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 35px 10px 135px; 
+}
+
+nav h1 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+nav h1,
+.active a,
+.active p,
+.todos h1 + p {
+  color: #ffffff;
+}
+
+.active {
+  background-color: #383f5f;
+}
+
+.active p,
+.todos h1 + p {
+  background-color: #148fd5;
+}
+
+main {
+  margin: 75px 0 0 -25px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.todos h1,
+.todos p {
+ display: inline-block;
+}
+
+.todos p {
+  margin: 0 0 0 15px;
+  vertical-align: 1px;
+}
+
+.todos ul {
+  margin: 15px 100px 0 0;
+}
+
+.todos li:first-child {
+  border-top: 0;
+  color: #148fd5;
+}
+
+.todos li:first-child label::before {
+  content: url(assessment_209/plus.png);
+  padding: 0 10px 0 0;
+}
+
+.todos li {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 15px 10px;
+  border-top: 1px solid #e7e7e7;
+}
+
+.incomplete + label::before {
+  content: url(assessment_209/unticked-box.png);
+  padding: 0 10px 0 0;
+}
+
+.completed + label::before {
+  content: url(assessment_209/ticked-box.png);
+  padding: 0 10px 0 0;
+}
+
+.completed + label {
+  color: #b3b3b3;
+  text-decoration: line-through;
+}
+
+.todos li label:hover {
+  cursor: pointer;
+  color: #148fd5;
+}
+
+#todo1:checked ~ aside {
+  display: block;
+}
+
+aside[role="modal"] {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  width: 575px;
+  height: 400px;
+  padding: 35px 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#todo1:checked ~ label::after {
+  display: block;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+fieldset {
+  margin-bottom: 25px;
+}
+
+aside[role="modal"] input,
+aside[role="modal"] textarea,
+aside[role="modal"] select {
+  border: 1px solid #b3b3b3;
+  box-sizing: border-box;
+  float: right;
+  font-size: 16px;
+  padding: 8px;
+}
+
+aside[role="modal"] label,
+legend {
+  float: left;
+  padding-top: 9px;
+}
+
+aside[role="modal"] label:hover {
+  cursor: auto;
+  color: black;
+}
+
+aside[role="modal"] input {
+  width: 395px;
+}
+
+aside[role="modal"] textarea {
+  width: 395px;
+  height: 140px;
+}
+
+aside[role="modal"] select {
+  background-color: #fff;
+  color: #b3b3b3;
+  width: 115px;
+  margin-left: 25px;
+}
+
+button {
+  cursor: pointer;
+  display: inline-block;
+  width: 185px;
+  background-color: #148fd5;
+  color: #ffffff;
+  font-size: 16px;
+  float: right;
+  margin: 0 0 0 24px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px){
+  nav {
+    display: block;
+  }
+
+  label[for="nav-toggle"] {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 1040px){
+  .todos ul {
+    position: relative;
+  }
+}

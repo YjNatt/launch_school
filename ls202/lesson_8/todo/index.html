@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todo list</title>
+    <meta charset="utf-8" />
+    <link href="whitespace-reset.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" id="nav-toggle" name="nav-toggle" checked />
+      <label for="nav-toggle">
+        <img src="assessment_209/hamburger.png" alt="nav toggle" />
+      </label>
+      <nav>
+        <section>
+          <ul>
+            <li>
+              <h1><img src="assessment_209/all-todos.png" alt="" />All Todos</h1>
+              <p>18</p>
+            </li>
+            <li class="active">
+              <a href="#">02/16</a>
+              <p>8</p>
+            </li>
+            <li>
+              <a href="#">03/16</a>
+              <p>2</p>
+            </li>
+            <li>
+              <a href="#">04/16</a>
+              <p>1</p>
+            </li>
+            <li>
+              <a href="#">05/16</a>
+              <p>1</p>
+            </li>
+            <li>
+              <a href="#">06/16</a>
+              <p>6</p>
+            </li>
+          </ul>
+        </section>
+
+        <section> 
+          <ul>
+            <li>
+              <h1><img src="assessment_209/done.png" alt="" />Completed</h1>
+            </li>
+            <li>
+              <a href="#">02/15</a>
+            </li>
+            <li>
+              <a href="#">03/15</a>
+            </li>
+            <li>
+              <a href="#">04/15</a>
+            </li>
+            <li>
+              <a href="#">05/15</a>
+            </li>
+            <li>
+              <a href="#">06/14</a>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </header>
+    <main>
+      <article class="todos">
+          <h1>02/16</h1>
+          <p>8</p>
+          <ul>
+            <li>
+              <input type="checkbox" id="add-todo" />
+              <label for="add-todo">Add new todo</label>
+            </li>
+            <li>
+              <input type="checkbox" id="todo1" class="incomplete"/>
+              <label for="todo1">Item 1</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+              <aside role="modal">
+                <form>
+                  <fieldset>
+                  <label for="title">Title</label>
+                  <input type="text" value="Item 1" id="title" />
+                  </fieldset>
+                  <fieldset>
+                    <legend>Due Date</legend>
+                    <select name="day" id="day">
+                      <option value="" disabled selected hidden>Day</option>
+                    </select>
+                    
+                    <select name="month" id="month">
+                      <option value="" disabled selected hidden>Month</option>
+                    </select>
+                    
+                    <select name="year" id="year">
+                      <option value="" disabled selected hidden>Year</option>
+                    </select>
+                  </fieldset>
+                  <fieldset>
+                  <label for="todo-description">Description</label>
+                    <textarea name="todo-description" id="todo-description" placeholder="Description"></textarea>
+                  </fieldset>
+                  <fieldset>
+                    <button type="button" >Mark As Complete</button>
+                    <button type="submit">Save</button>
+                  </fieldset>
+                </form>
+              </aside>
+            </li>
+            <li>
+              <input type="checkbox" id="todo2" class="incomplete"/>
+              <label for="todo2">Item 2</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo3" class="completed" />
+              <label for="todo3">Item 3</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo4" class="completed" />
+              <label for="todo4">Item 4</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo5" class="completed" />
+              <label for="todo5">Item 5</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo6" class="incomplete"/>
+              <label for="todo6">Item 6</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo7" class="incomplete"/>
+              <label for="todo7">Item 7</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo8" class="incomplete"/>
+              <label for="todo8">Item 8</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+            <li>
+              <input type="checkbox" id="todo9" class="incomplete"/>
+              <label for="todo9">Item 9</label>
+              <form>
+                <input type="image" src="assessment_209/trash.png" alt="Delete" />
+              </form>
+            </li>
+          </ul>
+      </article>
+    </main>
+  </body>
+</html>
