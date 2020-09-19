@@ -1,0 +1,74 @@
+Exercise 1:
+  > 'John' + ' Doe'
+  = 'John Doe'
+
+Exercise 2:
+  > let number = 4936
+  > let ones = number % 10
+  > ones
+  = 6
+
+  > number = (number - ones) / 10
+  = 493
+
+  > let tens = number % 10
+  > tens
+  = 3
+
+  > number = (number - tens) / 10
+  = 49
+
+  > let hundreds = number % 10
+  > hundreds
+  = 9
+
+  > let thousands = (number - hundreds) / 10
+  > thousands
+  = 4
+
+Exercise 3:
+  String
+  Boolean
+  Number
+  Number
+  Undefined
+  Object
+
+Exercise 4:
+  Statement
+  Expression
+  Expression
+
+Exercise 5:
+  Code logs '510' because of implicit coercion.
+  JavaScript first coerces the number 10 into a string then concatenates
+  with the string '5'
+
+Exercise 6:
+  > console.log(Number('5') + 10);
+
+Exercise 7:
+  > console.log(`the value of 5 + 5 is ${ Number('5') + 10 }.`);
+  the value of 5 + 5 is 15.
+
+Exercise 8:
+  No, JavaScript returns undefined
+
+Exercise 9:
+  > let names = ['asta', 'butterscotch', 'pudding', 'neptune', 'darwin'];
+
+Exercise 10:
+  > let pets = { asta: 'dog', butterscotch: 'cat', pudding: 'cat',
+                 neptune: 'fish', darwin: 'lizard'}
+
+Exercise 11:
+  false because string comparission is case sensitive
+
+Exercise 12:
+  3 because parseInt stops converting strings once it encounters a non-digit.
+  Which in this case is `.`
+
+Exercise 13:
+  true because when comparing two strings, JavaScript performs a character-by-character comparison going from left to right
+  so '1' < '9' so that means '12' is less than '9'
+
