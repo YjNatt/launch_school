@@ -1,0 +1,23 @@
+Question 3:
+  ReferenceError: foo is not defined
+  foo was declared inside the block with a block scope therefore you cannot access it from outside the block
+  
+Question 4:
+  Constants are not able to be reassigned which is why we get a TypeError on line 6
+  and the output on lines 2,3,4,7,8,9 all use 'Victor' as the constant NAME
+
+Question 5:
+  program logs bar
+
+  On line 1 we declare variable foo with the value 'bar'
+  On line 2 we start a block which creates a new scope for variables.
+  On line 3 we declare a new variable named foo with the value 'qux', however
+  the variable declared in the block variable shadows the variable that was created outside the block.
+  As well as only being accessible from within the block.
+  On line 4 we exit out of the block
+  On Line 6 we log the value variable foo is referencing which is the same variable that was declared on line 1
+  which is why we log 'bar'
+
+Question 6:
+  No because consts have the same variable scope rules as variable declared with let
+  line 3 did not produce an error because the const was declared within a block which has a different variable scope
