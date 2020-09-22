@@ -1,0 +1,10 @@
+Question 1:
+  No because on line 3 we initialize a local variable with the same name as the global variable.
+  This is known as variable shadowing and therefore the global variable on line 1 and the local variable
+  on line 3 are different.
+
+Question 5:
+  Nothing because we broke out of the function on line 3 with the return statement
+
+Question 6:
+  Nothing is logged to the console but the return value is 'Yipeee!!!!'
