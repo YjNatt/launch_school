@@ -1,0 +1,28 @@
+Question 1:
+- false
+- true
+- 3
+- 3
+- false
+- true
+- false
+- false
+- false
+- true
+- false
+- true
+
+Question 4:
+  Product2
+  Product3
+  Product not found!
+
+  The switch statement does not consist of break statements, control falls through from the maching case `113` clause
+  and executes the code in `142` clause and default cluase.
+
+Question 5:
+  if foo() {
+    return 'bar';
+  } else {
+    return qux();
+  }
