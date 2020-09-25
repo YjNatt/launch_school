@@ -1,0 +1,6 @@
+Question 3:
+  On line 3 the while loop conditional is reassignment therfore it always return a truthy value and create
+  an infinite loop
+
+Question 4:
+  The code does not produce an error since all 3 components of the for loop are optional
