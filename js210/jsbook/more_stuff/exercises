@@ -1,0 +1,29 @@
+Question 1:
+  logs [ 1, 4, 3];
+  On line 3 we are mutating the array by reassigning the 2nd element of the 
+  array to the value of 4.
+  It also shows that array2 is pointing to the same array as array1
+
+Question 2:
+  Error occured on line 4 in the exercise2 file.
+  We get a ReferenceError exception stating that the name greeting isn't defined.
+  On line 7 it states that the detected error occured at column 15 of line 4 within the hello function.
+
+Question 3:
+  Math.sqrt(37);
+
+Question 5:
+  converts a string into an array of words,
+  reverses the words,
+  transform the words into the length of the words.
+
+Question 7:
+  Exception Handling is a process that deals with errors in a manageable and predictable manner by using a try/
+  catch statement to catch exceptions that the code in the try block raises.
+
+  It allows programmers to deal with the problem in a way that makes sense and perhaps prevents a catastrophic failure
+  or nasty bug.
+
+Question 10:
+  ++ when applied to a string coerces it into a number and the it increments.
+  Keep in mind since ++ is post-increment the return value is the original number then it is incremented.
