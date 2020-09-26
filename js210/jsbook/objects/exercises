@@ -1,0 +1,17 @@
+Question 1:
+  person.name
+  person['name']
+
+Question 2:
+  1
+  '1'
+  undefined
+  'true'
+  true
+  'hello world'
+
+  JavaScript coerces non string key values to strings
+
+Question 8:
+  The programs logs 'hi' and 'hello' because objects are mutable; string and other primitive types are
+  not mutable
