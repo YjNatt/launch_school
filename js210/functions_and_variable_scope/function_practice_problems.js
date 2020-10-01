@@ -1,14 +1,15 @@
-function sum(number1, number2, number3) {
-  return number1 + number2 + number3;
-}
-
-function average(numbers) {
+function sum(numbers) {
   let total = 0;
   for(let index = 0; index < numbers.length; index += 1) {
     total += numbers[index];
   }
-
-  return total / numbers.length;
+  return total;
 }
 
-console.log(average([54, 34, 12]));
+function average(numbers) {
+  return sum(numbers) / numbers.length;
+}
+
+let temperatures = [32, 27, 31, 42];
+
+console.log(average(temperatures));
