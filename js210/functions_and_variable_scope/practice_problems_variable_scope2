@@ -1,0 +1,79 @@
+Question 1:
+logs: undefined
+
+  The variables declared with var is function level. Which is why after hoisting the declaration of
+  variable 'a' is moved to the top of the function however the assignment never happens which is why
+  line 7 logs 'undefined'
+
+Question 2:
+logs: ReferenceError
+
+  The scope of variables declared with let is block-level, therefore the variable 'a' is only available
+  inside the 'if' clause on line 3
+
+Question 3:
+logs: 'hello'
+      ReferenceError
+
+  The variable declaration on line 6 gets hoisted to thetop of the function and the is immediately assigned
+  the string 'hello' and is now logs 'hello'. Since variable 'a' scope is not on the global but on a function level
+  we get a ReferenceError on line 11.
+
+Question 4:
+logs: 'hello'
+      'hello'
+
+  Line 6 variable 'a''s scope is confined to the if statement. On line 2 variable `a` was no declared it is
+  treated as a global variable which is why we were able to output 'hello' on both lines 3 and 11.
+
+Question 5:
+logs: 4
+
+  JavaScript hoists the variable declaration on line 4 to the top of the global scope where there is already
+  a variable name `a` exists. Inside the loop variable `a` is reassigned 5 times and at the end it has a value
+  of 4 which we log on line 7
+
+Question 6:
+logs: 'hello'
+
+ There are two different `a` variables one in the outer scope on line 1 and one in the inner scope on line
+ 4. We output the outerscop variable `a` on line 7 which logs 'hello'.
+
+Question 7:
+logs: 4
+      3
+
+  The foo function returns the value of the bar function which is 4. However during the process
+  variable a was reassing twice with the final value of 3.
+
+Question 8:
+logs: 'superNested'
+      'global'
+
+  Line 18 we invoke the function checkScope, the return value is the return value of the function nested, 
+  whos return value is the function superNester(), whose return value is 'superNested'. Which is why we get the
+  output 'superNested'. And since we never modified the outer variable we still log 'global' 
+
+Question 9:
+logs: 'outer'
+      'outer'
+      'outer'
+      'inner'
+
+  The argument sent to function setScope created a local variable within the function which does not effect to the
+  original argument.
+
+Question 10:
+logs: 50
+      60
+      10
+
+  The Function parameter has the same name declared on line 2 however they are not the same.
+
+Question 11:
+logs: 'outer'
+      TypeError: setScope is not a function
+
+  After hoisting the variable setScope to the top with the value 'undefined', we tried to invoke setScope which is
+  not a function at this point.
+

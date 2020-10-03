@@ -1,0 +1,3 @@
+Output is 'This is local' because on line 4 the local variable myVar shadows the variable
+myVar in the outer scope. Since the outer scope variable myVar is shadowed by the local
+variable myVar on line 5 we log: 'This is local'.

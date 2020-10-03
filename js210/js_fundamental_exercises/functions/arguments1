@@ -1,0 +1,6 @@
+Output: 7
+
+On line 7 we pass the variable 'a' as an argument to the function myValue. What happens is inside
+the function a new local variable is created with the name 'b' which references the value of a which is 7.
+On line 4 we reassign the local variable 'b' to a new value of 10. Now variable 'a' and variable 'b' are
+referencing different values which is why we get 7 as our output.

@@ -1,0 +1,62 @@
+Question 1:
+logs:
+  "outer"
+  "inner"
+  "outer"
+
+  Line 8 we invoke console.log on the global variable `a` on line 1
+  On line 9 we invoke the function testScope() where on line 5 we output the
+  local scope variable 'a' which is defined and initialized on line 4
+  After we exit the function we output the global variable 'a' on line 1 again.
+
+Question 2:
+logs:
+  "outer"
+  "inner"
+  "inner"
+  
+  On line 4, a references the global variable on line 1. The reassignment assigns 'inner' to
+  the variable. Thus, line 10 logs 'inner' instead of outter.
+
+Question 3:
+logs:
+  "empty"
+  "play station"
+  "computer"
+
+  On line 8 we reference the global variable 'basket' and log 'empty'
+  The function call on line 19 reassigns the global variable 'basket' to 'tv'
+  The function call on line 20 reassigns the global variable 'basket' to 'computer'
+  The function call on line 21 logs the local variable declared and initialized on line 15 'playstation'
+  On line 23 we reference the global variable 'basket' and log 'computer'
+
+Question 4:
+logs:
+  "hi"
+
+  The function cal on line 5 declares and initializes global variable 'a' to the string 'hi'.
+  Line 6 we reference the global variable 'a' outside the function and log 'hi'
+  
+Question 1:
+logs: ReferenceError: a is not defined
+
+  This time we declare and initialize local variable 'a', which is not accessible on line 6. Thus it raises
+  a ReferenceError
+
+Question 6:
+logs: undefined
+
+  After hoisting, we declare the variable 'a' however the assignment doesn't happen.
+  Which is why the output is not 1.
+  
+Question 7:
+logs: ReferenceError
+
+  After hoisting, JavaScript know that there is an `a` variable, but that variable is in the
+  Temporal Dead Zone, and is unset and cannot be accessed.
+
+Question 8:
+logs: ReferenceError
+
+  After hoisting, the function "moves" to the top however since we never call the function 
+  we never assign a value to 'a' which is why we get a ReferenceError

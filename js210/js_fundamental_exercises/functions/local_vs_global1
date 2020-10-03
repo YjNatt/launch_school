@@ -1,0 +1,3 @@
+Line 8 will output 'This is global' because we are referencing the variable myVar in
+the outer scope on line 1. There is another variable myVar declared on line 4 however that
+variable is a local variable to someFunction therefore is has no effect on the outer scope.

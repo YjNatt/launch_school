@@ -1,0 +1,6 @@
+Output: 7
+
+The same reason as the last exercise. Except this time the local variable in myValue has the same
+name as the outer scope variable on line 1. When we reassign variable 'a' within myValue the 
+reassignment occurs on the local variable and has no effect on the global variable 'a'.
+This is known as variable shadowing.

@@ -1,0 +1,4 @@
+output: undefined
+
+JavaScript hoists variable declarations with 'var' to the top of the current scope. However variable 'a' 
+assignment is not hoisted.

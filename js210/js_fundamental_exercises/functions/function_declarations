@@ -1,0 +1,6 @@
+functions are hoisted to the top of their respective scope, including the function name and
+body, which is why the output is 'Hello, world'
+
+further exploration:
+Output is string because functions are hoisted above variable declarations, thus causing
+variable to be reassigned to the string 'fooo'

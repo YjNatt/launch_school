@@ -1,0 +1,5 @@
+Output: 'This is global'
+
+JavaScript is lexical scope so when we call function someFunction and output the value variable myVar
+is referencing JavaScript will first look in the local scope if it can't find the variable myVar
+then it will go the next outer scope which in this case is the global scope.
