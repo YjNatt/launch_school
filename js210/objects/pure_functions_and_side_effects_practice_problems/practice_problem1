@@ -1,0 +1,3 @@
+Side Effects:
+Line 6 - Side effect by mutating the array qux.
+Line 7 - Side effect by loging the output to the console.
