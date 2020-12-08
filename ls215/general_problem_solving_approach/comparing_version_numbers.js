@@ -37,9 +37,9 @@ function validVersion(version) {
 }
 
 function compareNumbers(num1, num2) {
-  if ((num2 === undefined) || (num1 > num2)) {
+  if (num1 > num2) {
     return 1;
-  } else if ((num1 === undefined) || (num1 < num2)) {
+  } else if (num1 < num2) {
     return -1;
   } else {
     return 0;
@@ -51,17 +51,11 @@ function compareVersions(version1, version2) {
 
   let version1Numbers = version1.split('.').map(Number);
   let version2Numbers = version2.split('.').map(Number);
-  let length;
-
-  if (version1Numbers.length > version2Numbers.length) {
-    length = version1Numbers.length;
-  } else {
-    length = version2Numbers.length;
-  }
+  let length = Math.max(version1Numbers.length, version2Numbers.length);
 
   for (let index = 0; index < length; index += 1) {
-    let version1Number = version1Numbers[index];
-    let version2Number = version2Numbers[index];
+    let version1Number = version1Numbers[index] || 0;
+    let version2Number = version2Numbers[index] || 0;
 
     if (compareNumbers(version1Number, version2Number) !== 0) {
       return compareNumbers(version1Number, version2Number);
@@ -71,12 +65,13 @@ function compareVersions(version1, version2) {
   return 0;
 }
 
-console.log(compareVersions('0.1', '1')); // -1
+console.log(compareVersions('1.0.0', '1')); // 0
 console.log(compareVersions('0.1.2.3.4', '0.1.2.3.4')); // 0
 console.log(compareVersions('0.2', '0.1')); // 1
-console.log(compareVersions('1.2.0.0', '1.18.2')); // -1
-console.log(compareVersions('1.18.2', '1.a')); // null
 console.log(compareVersions('13.37', '1.18.2')); // 1
+console.log(compareVersions('1.2.0.0', '1.18.2')); // -1
+console.log(compareVersions('0.1', '1')); // -1
 console.log(compareVersions('13.37', '13.37.1')); // -1
+console.log(compareVersions('1.18.2', '1.a')); // null
 console.log(compareVersions('1.18.2', '1.2.')); // null
 console.log(compareVersions('1.18.2', '.1.2')); // null
