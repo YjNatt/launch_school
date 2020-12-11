@@ -1,60 +1,96 @@
 /*
- * input: odd integer
- * output: four pinted diamond in a n x n grid
- * rules: - each row of the diamond increaments by 2 
- *          until the number of stars reaches n and then
- *          decrements by 2
- *        - starts at 1 star
- *        - log the diamond to the consol
- *        - input is always an odd integer
- *        - spaces on the left side of the diamond
- *          start at n / 2 - 1 and decreases by 1 until 0
- *          then back up to n / 2 - 1
+ *  input:
+ *  - number
+ *  - always odd
+ *  - represents the height and width of diamond
  *
- * datastructure / algorithm
- * - create an array with 1 '*' called stars
- * - create an array with 1 ' ' called spaces
- * - add the appropiate amount of spaces in spaces
- * - while stars length is less than n
- *   - join the stars and spaces into one string and log to the screen
- *   - add 2 * to stars
- *   - delete 1 space from spaces
+ *  output:
+ *  - use '*' and ' ' to display a diamond on console
  *
- * - while stars length is greater than or equal to 1
- *   - join the stars and spaces into one string and log to the screen
- *   - delete 2 * from stars
- *   - add 1 space from spaces
+ *  rules:
+ *  - The number of stars displayed on each row
+ *    starts at 1 and increments by 2 until it reaches the diamondLength
+ *     then decrement by 2 until it reaches 1
+ *
+ *  - the number of spaces prepended on each row
+ *    - starts at (diamondLength / 2) round down, is decrement by 1 until 0
+ *      the increments by 1 until it reaches (gridLength / 2) round down
+ *
+ *  questions
+ *  - return value is undefined?
+ *  - return a value if input is even?
+ *
+ *  data structure:
+ *  string
+ *    - concatenate number of spaces with number of stars
+ *
+ *  array
+ *    - stack to keep track of number of stars, and spaces.
+ *
+ *  algorith:
+ *  Calculate the max number of spaces and assign to maxSpaces
+ *    - diamond length / 2 round the answer down
+ *
+ *  initialize an array with the number of spaces is determined
+ *  by maxSpaces and assign to spaces
+ *
+ *  initialize an array with one * and assign to stars
+ *
+ *  while the length of stars is less than or equal to the diamond length
+ *  - join spaces and stars array to strings and concatenate.
+ *    - output the result
+ *
+ *  - push 2 '*' in stars
+ *  - pop 1 ' ' in spaces
+ *
+ *  while the length of stars is greater than or equal to 1
+ *  - pop 2 '*' in stars
+ *  - push 1 ' ' in spaces
+ *
+ *  - join spaces and stars array to strings and concatenate.
+ *    - output the result
+ *
  */
 
-function createSpacesArray(numberOfSpaces) {
-  let spaces = [];
+function diamonds(n) {
+  numberSequence(n).forEach(number => {
+    let outerSpaces = repeat(' ', (n - number) / 2);
+    let innerSpaces = repeat(' ', number - 2);
+    let rowString = outerSpaces + '*' + innerSpaces;
 
-  while (spaces.length < numberOfSpaces) {
-    spaces.push(' ');
-  }
+    if (number !== 1) {
+      rowString += '*';
+    }
 
-  return spaces;
+    console.log(rowString);
+  });
 }
 
-function diamond(numberOfStars) {
-  let stars = ['*'];
-  let spaces = createSpacesArray(Math.floor(numberOfStars / 2));
+function numberSequence(n) {
+  const result = [];
+  let increment = 2;
 
-  while (stars.length < numberOfStars) {
-    console.log(spaces.join('') + stars.join(''));
-    stars.push('*');
-    stars.push('*');
-    spaces.pop();
+  for (let number = 1; number > 0; number += increment) {
+    result.push(number);
+    if (number === n) {
+      increment = -2;
+    }
   }
 
-  while (stars.length >= 1) {
-    console.log(spaces.join('') + stars.join(''));
-    stars.pop();
-    stars.pop();
-    spaces.push(' ');
-  }
+  return result;
 }
 
-diamond(1);
-diamond(3);
-diamond(9);
+function repeat(char, times) {
+  let repeated = '';
+
+  for (let i = 0; i < times; i += 1) {
+    repeated += char;
+  }
+
+  return repeated;
+}
+
+diamonds(1);
+diamonds(3);
+diamonds(7);
+
