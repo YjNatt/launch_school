@@ -1,0 +1,20 @@
+How many staff are there?
+/api/staff_members
+There are 5 staff.
+
+How many students are there?
+/api/students
+There are 5 students.
+
+How many schedules exist?
+/api/schedules
+There are 9 schedules.
+
+How many schedules have bookings?
+3 out of 9 schedules have bookings.
+
+Do all staff have schedules?
+There is no route that will provide this information.
+
+Did all students book a schedule?
+There is no route that will provide this information.

@@ -1,0 +1,35 @@
+- div #1
+  - 9 direct child nodes
+  - 12 indirect child nodes
+
+- h1
+  - 2 direct child nodes
+  - 1 indirect child node
+
+- h1 em
+  - 1 direct child node
+
+- p
+  - 3 direct child nodes
+  - 1 indirect child nodes
+
+- p span
+  - 1 direct child node
+
+- a
+  - 1 direct child node
+  - 1 indirect child node
+
+- a strong
+  - 1 direct child node
+
+- div #8
+  - 1 direct child node
+  - 2 indirect child node
+
+- div #8 p
+  - 1 direct child node
+  - 1 indirect child node
+
+- div #8 p a
+  - 1 direct child node

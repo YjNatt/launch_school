@@ -1,0 +1,4 @@
+Visually there is no difference on how the browser renders the HTML, however
+the DOM created from the HTML are different.
+
+First HTML Snippet will have 2 extra whitespace nodes than the second snippet.

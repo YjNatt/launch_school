@@ -1,0 +1,4 @@
+The event listener uses stopPropagation instead of preventDefault.
+
+stopPropagation will prevent subsequent listeners from firing but it does not
+prevent the default behavior of clicking a link.
