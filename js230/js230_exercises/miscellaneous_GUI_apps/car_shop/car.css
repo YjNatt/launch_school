@@ -1,0 +1,51 @@
+header {
+  background-color: #E29922;
+  border-radius: 0 0 4px 4px;
+  color: #FFF;
+  padding: 10px 20px;
+}
+
+h1 {
+  font-size: 23px;
+  padding: 10px 0;
+}
+
+section > label {
+  padding-right: 5px;
+}
+
+section > button {
+  background-color: #E29922;
+  border: 1px solid #FFF;
+  border-radius: 3px;
+  margin-left: 15px;
+  color: #FFF;
+  padding: 5px 10px;
+}
+
+select {
+  background-color: #E29922;
+  border-color: #FFF;
+  border-radius: 3px;
+  color: #FFF;
+  margin-right: 10px;
+  padding: 3px 0;
+  width: 80px;
+}
+
+.cars {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.cars > div {
+  width: 200px;
+  margin-left: 25px;
+  margin-top: 30px;
+}
+
+img {
+  width: 100%;
+}

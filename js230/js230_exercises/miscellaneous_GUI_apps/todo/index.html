@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="todo.css" type="text/css">
+    <script src="todo.js"></script>
+  </head>
+  <body>
+    <h1>Todos</h1>
+    <ul class="todos">
+    </ul>
+    <nav class='hide'>
+      <ul data-todo-id="">
+        <li><a href="#">Edit Todo</a></li>
+        <li><a href="#">Show Details</a></li>
+        <li><a href="#">Delete</a></li>
+      </ul>
+    </nav>
+    <div class='hide prompt' data-todo-id=''>
+      <p>Are you sure you want to delete this todo?</p>
+      <button type="button">Yes</button>
+      <button type="button">No</button>
+    </div>
+    <div class='hide overlay'></div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  <link rel="stylesheet" href="whitespace-reset.css" type="text/css">
+  <link rel="stylesheet" href="car.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
+  <script src="car.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Buy Used Cars</h1>
+      <section>
+        <label for="make">Make</label>
+        <select name="make" id="make">
+          <option value="">All</option>
+        </select>
+        <label for="model">Model</label>
+        <select name="model" id="model">
+          <option value="">All</option>
+        </select>
+        <label for="price">Price</label>
+        <select name="price" id="price">
+          <option value="">Any</option>
+        </select>
+        <label for="year">Year</label>
+        <select name="year" id="year">
+          <option value="">Any</option>
+        </select>
+        <button>Filter</button>
+      </section>
+    </header>
+    <main>
+    </main>
+    <script id="car-template" type="text/x-handlebars-template">
+      <article class="cars">
+        {{#each cars}}
+        <div>
+          <figure>
+            <img src={{image}} />
+          </figure>
+          <h2>{{make}} {{model}}</h2>
+          <p>Year: {{year}}</p>
+          <p>Price: {{price}}</p>
+          <a href="#">Buy</a>
+        </div>
+        {{/each}}
+      </article>
+    </script>
+    <script id="option-template" type="text/x-handlebars-template">
+      <option value={{value}}>{{value}}</option>
+    </script>
+    <script id="model-template" type="text/x-handlebars-template">
+      <option value="">Any</option>
+      {{#each models}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </script>
+  </body>
+</html>

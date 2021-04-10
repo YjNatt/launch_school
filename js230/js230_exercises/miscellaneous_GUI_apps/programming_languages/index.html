@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="app.css" type="text/css">
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>Programming Languages</h1>
+    <section></section>
+    <script id="language-template" type="text/x-handlebars-template">
+      {{#each languages}}
+      <div data-id={{@index}}>
+        <h3>{{name}}</h3>
+
+        <p>{{formatDescription description}}</p>
+
+        {{#if (tooLong description)}}
+        <button type="button" data-description-length="short">Show More</button>
+        {{/if}}
+      </div>
+      {{/each}}
+    </script>
+  </body>
+</html>
