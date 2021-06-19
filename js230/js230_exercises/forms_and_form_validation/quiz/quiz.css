@@ -1,0 +1,16 @@
+main {
+  padding: 25px 150px;
+}
+
+label {
+  display: block;
+}
+
+button[type="submit"] {
+  border: none;
+  outline: none;
+}
+
+button[type="submit"]:disabled {
+  background-color: #CCC;
+}

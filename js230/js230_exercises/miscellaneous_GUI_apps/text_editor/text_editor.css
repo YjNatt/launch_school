@@ -1,0 +1,69 @@
+body {
+  background-color: #5555FF;
+}
+
+h1 {
+  color: #FFF;
+  text-align: center;
+}
+
+main {
+  background-color: #CCC;
+  box-sizing: border-box;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+}
+
+.textarea:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  background-color: #CCC;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+ol, ul {
+  margin: 20px 0 20px 40px;
+}
+
+ul > li {
+  list-style-type: disc;
+}
+
+ol > li {
+  list-style-type: decimal;
+}
+
+button:hover {
+  background-color: #F9F9F9;
+}
+
+button:focus {
+  outline: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+}
+
+.active {
+  background-color: #F9F9F9;
+}
+
+.textarea {
+  box-sizing: border-box;
+  width: 798px;
+  height: 469px;
+  margin: auto;
+  background-color: white;
+  padding: 5px;
+}
+

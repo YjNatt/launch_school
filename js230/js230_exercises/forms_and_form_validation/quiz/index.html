@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="whitespace-reset.css" type="text/css">
+    <link rel="stylesheet" href="quiz.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
+    <script src="quiz.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Multiple Choice Quiz</h1>
+      <form action="" method="">
+        <fieldset>
+          <ul>
+          </ul>
+          <button type="submit">Submit Quiz</button>
+          <button type="button" class="reset" disabled>Reset</button>
+        </fieldset>
+      </form>
+    </main>
+  <script id="quiz-template" type="text/x-handlebars-template">
+    {{#each questions}}
+    <li data-id="{{id}}">
+      <p>Q{{id}}. {{{description}}}</p>
+      {{#each options}}
+        <label>
+          <input type="radio" name="{{../id}}" id="{{this}}" value="{{this}}">
+          {{this}}
+        </label>
+      {{/each}}
+      <p class="result"></p>
+    </li>
+    {{/each}}
+  </script>
+  </body>
+</html>

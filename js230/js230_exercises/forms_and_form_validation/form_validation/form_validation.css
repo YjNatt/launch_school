@@ -1,0 +1,75 @@
+body {
+  box-sizing: border-box;
+  background-color: #53BE43;
+}
+
+h1 {
+  font-size: 26px;
+  color: #FFF;
+  width: 800px;
+  margin: 70px auto 15px auto;
+}
+
+form {
+  box-sizing: border-box;
+  background-color: #FFF;
+  border-radius: 3px;
+  width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+dt {
+  display: block;
+}
+
+dd {
+  display: inline-block;
+}
+
+span {
+  margin-left: 35px;
+}
+
+label {
+  font-size: 18px;
+}
+
+input {
+  font-size: 16px;
+  width: 300px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  outline-color: #53BE43;
+  border: 1px #CCC solid;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #53BE43;
+  border: none;
+  border-radius: 3px;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  width: 90px;
+  padding: 5px 0;
+}
+
+input[name="card"] {
+  width: 60px;
+}
+
+p.error {
+  margin-bottom: 10px;
+}
+
+p.error, span.error {
+  color: #BE523F;
+}
+
+.error {
+  border-color: #BE523F;
+}

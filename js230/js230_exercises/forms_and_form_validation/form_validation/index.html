@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head> <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="whitespace-reset.css" type="text/css">
+    <link rel="stylesheet" href="form_validation.css" type="text/css">
+    <script src="form_validation.js"></script>
+  </head>
+  <body>
+    <h1>Sign up Form</h1>
+    <form action="" method="post" novalidate>
+      <p class="error"></p>
+      <fieldset>
+        <dl>
+          <dt>
+            <label for="firstName">First Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="firstName" id="firstName" required/>
+            <span class="error"></span>
+          </dd>
+          <dt>
+            <label for="lastName">Last Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="lastName" id="lastName" required />
+            <span class="error"></span>
+          </dd>
+          <dt>
+            <label for="email">Email</label>
+          </dt>
+          <dd>
+            <input type="email" name="email" id="email" pattern=".+@.+" required />
+            <span class="error"></span>
+          </dd>
+          <dt>
+            <label for="password">Password</label>
+          </dt>
+          <dd>
+            <input type="password" name="password" id="password" required minlength="10" />
+            <span class="error"></span>
+          </dd>
+          <dt>
+            <label for="phone">Phone Number</label>
+          </dt>
+          <dd>
+            <input type="text" name="phone" id="phone" placeholder="111-222-3333" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+            <span class="error"></span>
+          </dd>
+          <dt>
+            <label for="card">Credit Card</label>
+          </dt>
+          <dd>
+            <input type="text" name="card" maxlength="4">-
+            <input type="text" name="card" maxlength="4">-
+            <input type="text" name="card" maxlength="4">-
+            <input type="text" name="card" maxlength="4">
+          </dd>
+        </dl>
+      </fieldset>
+      <button type="submit">Sign Up</button>
+    </form>
+    <div>
+      <h1>Serialized Form</h1>
+      <p></p>
+    </div>
+  </body>
+</html>
