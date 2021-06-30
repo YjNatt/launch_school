@@ -1,42 +1,27 @@
 const HTTP = require('http');
 const URL = require('url').URL;
+const QUERYSTRING = require('querystring');
+const ROUTER = require('router');
+const FINALHANDLER = require('finalhandler');
+const SERVERSTATIC = require('server-static');
 const PORT = 3000;
 const APR = 5;
 const HANDLEBARS = require('handlebars');
+const MIME_TYPES = {
+  '.css': 'text/css',
+  '.js': 'application/javascript',
+  '.jpg': 'image/jpeg',
+  'png': 'image/png',
+  '.ico': 'image/x-icon'
+};
 
-const TEMPLATE = `
+const LOAN_OFFER_SOURCE = `
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="utf-8">
       <title>Loan Calculator</title>
-      <style type="text/css">
-        body {
-          background: rgba(250, 250, 250);
-          font-family: sans-serif;
-          color: rgb(50,50,50);
-        }
-
-        article {
-          width: 100%;
-          max-width: 40rem;
-          margin: 0 auto;
-          padding: 1rem 2rem;
-        }
-
-        h1 {
-          font-size: 2.5rem;
-          text-align: center;
-        }
-
-        table {
-          font-size: 2rem;
-        }
-
-        th {
-          text-align: right;
-        }
-      </style>
+      <link rel="stylesheet" href="/assets/css/styles.css">
     </head>
     <body>
       <article>
@@ -72,16 +57,62 @@ const TEMPLATE = `
       </body>
     </html>`;
 
-const LOAN_OFFER_TEMPLATE = HANDLEBARS.compile(TEMPLATE);
+const LOAN_FORM_SOURCE = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Loan Calculator</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <article>
+      <h1>Loan Calculator</h1>
+      <form action="/loan-offer" method="post">
+        <p>All loans are offered at an APR of {{apr}}%.</p>
+        <label for="amount">How much do you want to borrow (in dollars)?</label>
+        <input type="number" name="amount" value="">
+        <label for="amount">How much time do you want to pay back your loan?</label>
+        <input type="number" name="duration" value="">
+        <input type="submit" name="" value="Get loan offer!">
+      </form>
+    </article>
+  </body>
+</html>`;
+
+const LOAN_OFFER_TEMPLATE = HANDLEBARS.compile(LOAN_OFFER_SOURCE);
+const LOAN_FORM_TEMPLATE = HANDLEBARS.compile(LOAN_FORM_SOURCE);
 
 function render(template, data) {
   let html = template(data);
   return html;
 }
 
+function parseFormData(request, callback) {
+  let body = '';
+  request.on('data', chunk => {
+    body += chunk.toString();
+  });
+  request.on('end', () => {
+    let data = QUERYSTRING.parse(body);
+    data.amount = Number(data.amount);
+    data.duration = Number(data.duration);
+    callback(data);
+  });
+}
+
 function getParams(path) {
   let url = new URL(path, `http://localhost:${PORT}/`);
-  return url.searchParams;
+  let searchParams = url.searchParams;
+  let data = {};
+  data.amount = Number(searchParams.get('amount'));
+  data.duration = Number(searchParams.get('duration'));
+
+  return data;
+}
+
+function getPathname(path) {
+  const myURL = new URL(path, `http://localhost:${PORT}`);
+  return myURL.pathname;
 }
 
 function calculateLoan(amount, duration, apr) {
@@ -95,10 +126,7 @@ function calculateLoan(amount, duration, apr) {
   return payment.toFixed(2);
 }
 
-function createLoanOffer(params) {
-  const APR = 5;
-  let data = {};
-
+function createLoanOffer(data) {
   data.amount = Number(params.get('amount'));
   data.amountIncrement = data.amount + 100;
   data.amountDecrement = data.amount - 100;
@@ -111,21 +139,47 @@ function createLoanOffer(params) {
   return data;
 }
 
-const SERVER = HTTP.createServer((req, res) => {
-  let path = req.url
+let router = ROUTER();
+router.use(SERVERSTATIC('public'));
 
-  if (path === '/flavicon.ico') {
-    res.statusCode = 404;
-    res.end();
-  } else {
-    let data = createLoanOffer(getParams(path));
+router.get('/', (req, res) => {
+  let content = render(LOAN_FORM_TEMPLATE, {apr: APR});
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.write(`${content}\n`);
+  res.end();
+});
+
+router.get('/loan-offer', (req, res) => {
+  let data = createLoanOffer(getParams(path));
+  let content = render(LOAN_OFFER_TEMPLATE, data);
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.write(`${content}\n`);
+  res.end();
+});
+
+router.post('/loan-offer', (req, res) => {
+  parseFormData(req, parsedData => {
+    let data = createLoanOffer(parsedData);
     let content = render(LOAN_OFFER_TEMPLATE, data);
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     res.write(`${content}\n`);
     res.end();
-  }
+  });
+});
+
+router.get('*', (req, res) => {
+  res.statusCode = 404;
+  res.end();
+});
+
+const SERVER = HTTP.createServer((req, res) => {
+  router(req, res, FINALHANDLER(req, res));
 });
 
 SERVER.listen(PORT, () => {
