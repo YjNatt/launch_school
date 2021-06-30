@@ -152,7 +152,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/loan-offer', (req, res) => {
-  let data = createLoanOffer(getParams(path));
+  let data = createLoanOffer(getParams(req.url));
   let content = render(LOAN_OFFER_TEMPLATE, data);
 
   res.statusCode = 200;
